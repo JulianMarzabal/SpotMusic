@@ -6,11 +6,16 @@
 //
 
 import UIKit
+import AVFAudio
+import SDWebImage
+var audioMusic: AVAudioPlayer?
 
 
 
 class PlaylistViewController: UIViewController {
     var viewmodel: PlaylistViewModel
+    
+   
     
     init(viewmodel: PlaylistViewModel){
         self.viewmodel = viewmodel
@@ -32,12 +37,12 @@ class PlaylistViewController: UIViewController {
     }()
     lazy var imagView: UIImageView = {
         let imageView = UIImageView()
-        let image = UIImage(named: "shakira")
         imageView.contentMode = .scaleAspectFit
-        imageView.image = image
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
+    
+    lazy var footerMusic = FooterMusicView()
   
 
     override func viewDidLoad() {
@@ -45,10 +50,12 @@ class PlaylistViewController: UIViewController {
         title = "Playlist"
         bindReaction()
         viewmodel.getPlaylistByID()
-       
-     
         setupUI()
         setConstraints()
+       
+        //imagView.sd_setImage(with: viewmodel.urlImage)
+        
+       
 
     }
 
@@ -61,16 +68,39 @@ class PlaylistViewController: UIViewController {
                 self?.tableView.reloadData()
             }
         }
+        viewmodel.onImageChange = { [weak self] imageURL in
+            DispatchQueue.main.async {
+                self?.imagView.sd_setImage(with: .init(string: imageURL))
+            }
+        }
+        viewmodel.onplayingMusic = { [weak self]  in
+            
+            self?.footerMusic.playmusic()
+        }
+        
+        viewmodel.onStopMusic = { [weak self]  in
+            
+            self?.footerMusic.stopMusic()
+        }
+        
+        viewmodel.onProgressMusic = { [weak self] progress in
+            self?.footerMusic.progressMusic(progress: progress)
+        }
+        
+        
     }
+  
 
     
     func setupUI(){
         view.addSubview(tableView)
         view.addSubview(imagView)
-        view.sendSubviewToBack(imagView)
+        view.addSubview(footerMusic)
+        
         tableView.backgroundColor = .black
         
     }
+   
     
     func setConstraints() {
         NSLayoutConstraint.activate([
@@ -83,13 +113,26 @@ class PlaylistViewController: UIViewController {
            // imagView.bottomAnchor.constraint(equalTo: tableView.topAnchor,constant: 60),
             
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: imagView.bottomAnchor, constant: 60)
+            tableView.topAnchor.constraint(equalTo: imagView.bottomAnchor, constant: 60),
+            
+            
+            
+            footerMusic.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            footerMusic.bottomAnchor.constraint(equalTo: view.bottomAnchor,constant: -18),
+            footerMusic.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            footerMusic.heightAnchor.constraint(equalToConstant: 80)
+        
         
         ])
     }
     
+  
+   
+    
+   
+  
     
     
 }
@@ -105,8 +148,9 @@ extension PlaylistViewController: UITableViewDataSource, UITableViewDelegate {
             return UITableViewCell()
         }
       
-        let model = viewmodel.myPlaylistModel[indexPath.row]
-        cell.delegate = self
+        let model = viewmodel.cellModel[indexPath.row]
+        
+       
         cell.configure(with: model)
         
         
@@ -125,10 +169,4 @@ extension PlaylistViewController: UITableViewDataSource, UITableViewDelegate {
     
 }
 
-extension PlaylistViewController: musicPlayerProtocol {
-    func playmusic() {
-      
-    }
-    
-    
-}
+

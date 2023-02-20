@@ -67,13 +67,7 @@ class MusicCollectionViewCell: UICollectionViewCell {
         genreImageView.sd_setImage(with: url)
         genreImageView.layer.cornerRadius = 20
     }
-    /*public func configureUI(indexpath:Int){
-        let colors = [UIColor.systemRed, UIColor.systemBlue, UIColor.systemGreen, UIColor.systemYellow, UIColor.systemPink]
-        
-        contentView.backgroundColor = colors[indexpath]
-        
-    }
-     */
+   
     
     
 }

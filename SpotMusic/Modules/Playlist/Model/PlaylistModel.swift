@@ -13,6 +13,5 @@ struct myPlaylistModel {
     let previewURL: String
     let imageURL: String
     
-   
-    
 }
+

@@ -8,7 +8,9 @@
 import Foundation
 
 protocol HomeViewDelegate:AnyObject {
-    func selectPlaylist(index:Int)
+    func selectPlaylist(id:String)
+    func toAddPlaylistView()
+    
 }
 
 class HomeViewModel {
@@ -20,22 +22,7 @@ class HomeViewModel {
     
     
    func getPlaylist() {
-        /*API.shared.getUserPlaylist { [weak self] results in
-            switch results {
-            case .success(let playlists):
-                print("all is ok")
-                //self?.playlist =playlist
-                self?.createModel()
-                self?.onSuccessfullUpdateReaction?()
-                
-                DispatchQueue.main.async {
-                    print("get playlist Dispatch")
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
-         */
+     
        API.shared.getUserPlaylist { [weak self] results in
            switch results {
            case .success(let playlists):
@@ -66,9 +53,9 @@ class HomeViewModel {
         onSuccessfullUpdateReaction?()
     }
     
-    func selectPlaylistBy(index: Int) {
-        guard index < playlist.count else { return }
-        delegate?.selectPlaylist(index: index)
+    func selectPlaylistBy(id: String) {
+       
+        delegate?.selectPlaylist(id: id)
     }
     
 }

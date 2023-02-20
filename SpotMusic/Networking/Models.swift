@@ -29,8 +29,6 @@ struct UserPlaylist: Codable {
         let id: String
         let images: [UserPlaylistImage]?
         let name: String
-        //let owner: {}? dictionary
-        //let primaryColor: String
         let userPlaylistPublic: Bool?
         let snapshotID: String?
         //let tracks: String?

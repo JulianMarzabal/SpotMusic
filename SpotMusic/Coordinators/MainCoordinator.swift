@@ -26,11 +26,18 @@ class MainCoordinator {
     
     
     
+    
+    
 }
 
 extension MainCoordinator: HomeViewDelegate {
-    func selectPlaylist(index:Int) {
-        let vm = PlaylistViewModel()
+    func toAddPlaylistView() {
+        let vc = addPlaylistViewController()
+        navigationController.pushViewController(vc, animated: false)
+    }
+    
+    func selectPlaylist(id:String) {
+        let vm = PlaylistViewModel(playlistID: id)
         let vc = PlaylistViewController(viewmodel: vm)
         print("celda1")
         navigationController.pushViewController(vc, animated: false)

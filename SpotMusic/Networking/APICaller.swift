@@ -179,11 +179,10 @@ class API {
         
     }
     
-    func getPlaylistDetails(completion: @escaping (Result<PlaylistTrack,Error>) -> Void){
+    func getPlaylistDetails(playlistID:String, completion: @escaping (Result<PlaylistTrack,Error>) -> Void){
         //let userToken = getUserToken()
-        let myplaylistId = "37i9dQZF1DXbbu94YBG7Ye"
    
-        guard let url = URL(string: "https://api.spotify.com/v1/playlists/\(myplaylistId)/tracks")  else {return}
+        guard let url = URL(string: "https://api.spotify.com/v1/playlists/\(playlistID)/tracks")  else {return}
         var request = URLRequest(url: url)
         let token = getUserToken()
         print(token)

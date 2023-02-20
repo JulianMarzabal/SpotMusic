@@ -40,13 +40,11 @@ class HomeViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = .init(width: 180, height: 100)
         layout.scrollDirection = .vertical
-        
         layout.minimumLineSpacing = 5
         layout.minimumInteritemSpacing = 5
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.backgroundColor = .black
         collection.tintColor = .black
-        
         collection.translatesAutoresizingMaskIntoConstraints = false
         //collection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
        
@@ -54,7 +52,7 @@ class HomeViewController: UIViewController {
     }()
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Explore all"
+        label.text = "Explore your playlist"
         label.textColor = .white
         label.textAlignment = .left
         label.numberOfLines = 0
@@ -72,13 +70,7 @@ class HomeViewController: UIViewController {
         setupConstraints()
         viewModel.getPlaylist()
         
-        
-        
-       
-        
-       
     
-        
     }
    
     override func viewWillAppear(_ animated: Bool) {
@@ -101,7 +93,7 @@ class HomeViewController: UIViewController {
     
     private func setupUI() {
         self.navigationItem.searchController = searchController
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: nil)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action:#selector(addPlaylist))
         self.navigationItem.rightBarButtonItem?.tintColor = .white
         
         
@@ -142,6 +134,10 @@ class HomeViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         
         ])
+    }
+    
+    @objc func addPlaylist() {
+        viewModel.delegate?.toAddPlaylistView()
     }
         
     
@@ -200,7 +196,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         guard let  cell = collectionView.cellForItem(at: indexPath) as? MusicCollectionViewCell else {
             return
         }
-        viewModel.selectPlaylistBy(index: indexPath.row)
+        viewModel.delegate?.selectPlaylist(id: viewModel.playlistHomeModel[indexPath.item].id!)
         print("cell\([indexPath.row])")
     }
+    
 }

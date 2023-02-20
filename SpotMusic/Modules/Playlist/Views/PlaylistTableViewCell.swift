@@ -8,18 +8,24 @@
 import UIKit
 import AVFoundation
 
-
-protocol musicPlayerProtocol: AnyObject {
-    func playmusic()
-    
+struct PlaylistTableViewModel{
+    var isPlaying: Bool
+    var nameSong: String
+    var urlImage: String
+    var handler: ()-> Void
     
 }
+
+
 
 class PlaylistTableViewCell: UITableViewCell {
 
     static let identifier = "PlaylistTableViewCell"
     var playlistModel: myPlaylistModel?
-    weak var delegate: musicPlayerProtocol?
+    var isplaying: Bool = false
+    var previewURL:URL?
+    var handler: (()-> Void)?
+ 
    
  
     
@@ -84,23 +90,23 @@ class PlaylistTableViewCell: UITableViewCell {
         ])
     }
     @objc private func pressButton() {
-        print("boton")
-        guard let myModel = playlistModel else {return}
-        self.delegate?.playmusic()
-        print("boton")
+        handler?()
+     
+        
+        
+
    
-      
     }
+ 
+ 
     
-    public func configure(with model: myPlaylistModel) {
+    public func configure(with model: PlaylistTableViewModel ) {
         //self.playlistModel = model
-        titleSongLabel.text = model.name
-        guard let url = URL(string: model.imageURL) else {return}
-       
-        
-        
-        
-                            
+        titleSongLabel.text = model.nameSong
+        guard let url = URL(string: model.urlImage) else {return}
+        handler = model.handler
+        button.tintColor = model.isPlaying ? .systemGreen : .white
+     
         imagView.sd_setImage(with: url)
     }
 

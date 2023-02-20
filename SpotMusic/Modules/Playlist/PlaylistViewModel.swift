@@ -13,17 +13,69 @@ class PlaylistViewModel {
     var playlistByID: [Item] = [Item]()
     var myPlaylistModel: [myPlaylistModel] = []
     var onSuccessfullUpdateReaction:  (() -> Void)?
+    var audioModule: AudioModule = .init()
     var musicSound: AVAudioPlayer?
+    var cellModel: [PlaylistTableViewModel] = []
+    var footerModel: [FooterMusicViewModel] = []
+ 
+    var songPlaying: String?
+    var playlistID: String
+    var onImageChange: ((String) -> Void)?
+    var onplayingMusic: (()-> Void)?
+    var onStopMusic: (() -> Void)?
+    var onProgressMusic: ((Float) -> Void)?
+   
     
     
+    
+    init(playlistID:String){
+        self.playlistID = playlistID
+    }
+    
+    
+    func updateCells() {
+       cellModel = myPlaylistModel.map {[weak self] model in
+            PlaylistTableViewModel.init(isPlaying: model.name == songPlaying, nameSong: model.name, urlImage: model.imageURL, handler: {[weak self] in self?.handleSong(myplaylistSong: model)})
+           
+        }
+        self.onSuccessfullUpdateReaction?()
+    }
+    
+    func updateFooterMusic() {
+        footerModel = myPlaylistModel.map({ [weak self] model in
+            FooterMusicViewModel.init(isPlaying: model.name == songPlaying, nameSong: model.name, urlImage: model.imageURL, handler: {[weak self] in self?.handleSong(myplaylistSong: model)})
+        })
+        self.onSuccessfullUpdateReaction?()
+    }
+    
+    
+    func handleSong(myplaylistSong: myPlaylistModel){
+        if let songPlaying = songPlaying {
+            if songPlaying == myplaylistSong.name {
+                audioModule.stopMusic()
+                self.songPlaying = nil
+            updateCells()
+                return 
+            }
+        }
+        
+        guard let url = URL(string: myplaylistSong.previewURL) else {return}
+        songPlaying = myplaylistSong.name
+        audioModule.loadMusic(url: url)
+        self.updateCells()
+        
+    }
+
     
     func getPlaylistByID() {
-        API.shared.getPlaylistDetails { [weak self] results in
+        API.shared.getPlaylistDetails(playlistID: playlistID) { [weak self] results in
             switch results {
             case .success(let playlistByID):
                 self?.playlistByID = playlistByID.itemsList
                 self?.createModel()
-                self?.onSuccessfullUpdateReaction?()
+                self?.updateCells()
+                self?.updateFooterMusic()
+                self?.onImageChange?(playlistByID.itemsList.first?.track.album.images.first?.url ?? "")
                 print("PlaylistByid ok")
                 //7self?.createModel()
             case .failure(let error):
@@ -43,30 +95,17 @@ class PlaylistViewModel {
         for item in playlistByID {
             myPlaylistModel.append(.init(name: item.track.name, description: item.track.name, previewURL: item.track.preview_url ?? "", imageURL: item.track.album.images.first?.url ?? ""))
         }
-        
-    print(myPlaylistModel)
+   
         
     
     }
-    
+  
     func updateViewModel() {
         createModel()
+
         onSuccessfullUpdateReaction?()
-    }
-    
-    
-    
-    
-    func playmusic(url:URL) {
-     
         
-        do {
-            musicSound = try AVAudioPlayer(contentsOf: url)
-            musicSound?.play()
-        }catch{
-            
-        }
-    
     }
+    
 }
     

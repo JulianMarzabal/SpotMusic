@@ -18,6 +18,7 @@ struct PlaylistTrack: Decodable {
     let offset: Int
     let previous: String?
     let total: Int
+
     
     let itemsList: [Item]
     
@@ -28,6 +29,7 @@ struct PlaylistTrack: Decodable {
         case offset
         case previous
         case total
+      
         case itemsList = "items"
         
         
@@ -50,8 +52,6 @@ struct Track: Decodable {
     let available_markets: [String]
     let disc_number, duration_ms: Int
     let explicit: Bool
-
-
     let href, id: String
     let name: String
     let popularity: Int
@@ -84,7 +84,7 @@ struct Album:Decodable {
 // MARK: - Image
 struct Image:Decodable {
     let url: String
-    let height, width: Int
+    let height, width: Int?
 }
 
 
