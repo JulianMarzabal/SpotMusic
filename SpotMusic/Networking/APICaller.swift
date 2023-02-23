@@ -11,7 +11,6 @@ enum RequestSettings {
     case login(authorization:String)
     case userPlaylist(userID:String)
     case playlistDetail(playlistID:String)
-    case searchItem(search:String)
     
     var uri: String {
         switch self {
@@ -21,9 +20,6 @@ enum RequestSettings {
             return "/v1/users/\(userID)/playlists"
         case let .playlistDetail(playlistID):
             return "/playlists/\(playlistID)/tracks"
-        case let .searchItem(search):
-            return "/search?q=\(search)&type=track"
-            
         
         }
     }
@@ -50,7 +46,7 @@ enum RequestSettings {
         switch self {
         case .login:
             return "POST"
-        case .playlistDetail,.userPlaylist,.searchItem:
+        case .playlistDetail,.userPlaylist:
             return "GET"
         }
     }
@@ -86,7 +82,7 @@ struct Constants {
 
 
 class API {
-    
+    var authenticationManager = AuthManager()
     static let shared = API()
     
     func makeBasicRequest<T:Decodable>(settings:RequestSettings,bodyData:Data?, onSuccess: @escaping (T) -> Void, onError: @escaping (Error) -> Void){
@@ -100,12 +96,12 @@ class API {
             let token = getUserToken()
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
-        
+       
         if !settings.autenticationType.isEmpty{
             request.setValue(settings.autenticationType, forHTTPHeaderField: "Authorization")
         }
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        let task = URLSession.shared.dataTask(with: request) { [self] data, response, error in
             guard let data = data, error == nil, let response = response as?  HTTPURLResponse else {
                 return
             }
@@ -113,7 +109,9 @@ class API {
             case 200,201:
                 break
             case 401:
-                self.getAccessToken(completion: {[weak self] in self?.makeBasicRequest(settings: settings, bodyData: bodyData, onSuccess: onSuccess, onError: onError)})
+                authenticationManager.renewToken {[weak self] in
+                    self?.makeBasicRequest(settings: settings, bodyData: bodyData, onSuccess: onSuccess, onError: onError)
+                }
                 return
             default:
                 onError(NSError.init(domain: "erro", code: 34))
@@ -137,41 +135,14 @@ class API {
         
     }
     
-    func getAccessToken(completion: @escaping () -> Void) {
-        guard let url = URL(string:"https://accounts.spotify.com/api/token") else {
-            return
-        }
-        let bodyParameters = "grant_type=client_credentials"
-        let postData = bodyParameters.data(using: .utf8)
-        var request = URLRequest(url: url)
-        // method, body , headers
-        request.httpMethod = "POST"
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        request.setValue("Basic MTk3MDU0MTFmMmJkNDU4M2EyNTM4NjQxZWY3YzQ4NTY6NDY5NWJmMmMwYTU1NDVjZjljNGU3ODE4OGNmNDRhM2Q=", forHTTPHeaderField: "Authorization")
-        request.httpBody = postData
+    func getAccessToken(completion: @escaping (Result<AuthenticationResponse,Error>) -> Void) {
+        makeBasicRequest(settings: .login(authorization: "Basic MTk3MDU0MTFmMmJkNDU4M2EyNTM4NjQxZWY3YzQ4NTY6NDY5NWJmMmMwYTU1NDVjZjljNGU3ODE4OGNmNDRhM2Q="), bodyData: "grant_type=client_credentials".data(using: .utf8), onSuccess: {response in
+            completion(.success(response))
+        }, onError: {error  in completion(.failure(error))})
         
-        // make the request
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data, error == nil else {
-                return
-            }
-            
-            do {
-                let response = try JSONDecoder().decode(Response.self, from: data)
-                let acessToken = response.access_token.data(using: .utf8)!
-                try KeychainManager.save(token: acessToken, account: "Usertoken")
-                completion()
-                
-                //try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                print("Success \(response)")
-                
-            } catch {
-                print(error)
-            }
-        }
-        task.resume()
     }
+        
     
     func getUserPlaylist(completion: @escaping (Result<UserPlaylistResponse,Error>) -> Void) {
         makeBasicRequest(settings: .userPlaylist(
@@ -212,11 +183,6 @@ class API {
         
     }
     
-    func getSearchItem(completion: @escaping(Result<SearchItem,Error>) -> Void) {
-        makeBasicRequest(settings: .searchItem(search: "asitwas"), bodyData: nil, onSuccess: {response in completion(.success(response))}, onError: {error in completion(.failure(error))})
-        
-    }
-    
     
     
     
@@ -232,8 +198,6 @@ class API {
     
     
 }
-
-
 
 
 
