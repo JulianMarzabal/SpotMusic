@@ -7,7 +7,7 @@
 
 import Foundation
 //POST Model
-struct Response: Codable {
+struct AuthenticationResponse: Codable {
     let access_token:String
     let expires_in:Int
     let token_type:String?
