@@ -23,14 +23,16 @@ class HomeViewController: UIViewController {
     
     
     let searchController: UISearchController = {
-        let search = UISearchController()
+        let search = UISearchController(searchResultsController: SearchResultsViewController())
         search.searchBar.placeholder = "Listen your favourite music"
+        search.searchBar.inputViewController?.definesPresentationContext = true
         //search.searchBar.backgroundColor = .white
         search.searchBar.tintColor = .white
         search.searchBar.barStyle = .black
         search.searchBar.searchTextField.textColor = .white
         search.searchBar.sizeToFit()
         search.resignFirstResponder()
+        search.definesPresentationContext = true
         
         
         return search
@@ -93,6 +95,7 @@ class HomeViewController: UIViewController {
     
     private func setupUI() {
         self.navigationItem.searchController = searchController
+        self.navigationItem.hidesSearchBarWhenScrolling = false
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action:#selector(addPlaylist))
         self.navigationItem.rightBarButtonItem?.tintColor = .white
         
@@ -160,6 +163,8 @@ extension HomeViewController: UISearchResultsUpdating {
         guard let text = searchController.searchBar.text else {
             return
         }
+        let vc = searchController.searchResultsController as? SearchResultsViewController
+        
         
         print(text)
         

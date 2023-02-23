@@ -3,7 +3,7 @@
 //  SpotMusic
 //
 //  Created by Julian Marzabal on 22/01/2023.
-//
+//https://api.spotify.com/v1/search?q=asitwas&type=track
 
 import Foundation
 
@@ -11,6 +11,7 @@ enum RequestSettings {
     case login(authorization:String)
     case userPlaylist(userID:String)
     case playlistDetail(playlistID:String)
+    case searchItem(search:String)
     
     var uri: String {
         switch self {
@@ -20,6 +21,9 @@ enum RequestSettings {
             return "/v1/users/\(userID)/playlists"
         case let .playlistDetail(playlistID):
             return "/playlists/\(playlistID)/tracks"
+        case let .searchItem(search):
+            return "/search?q=\(search)&type=track"
+            
         
         }
     }
@@ -46,7 +50,7 @@ enum RequestSettings {
         switch self {
         case .login:
             return "POST"
-        case .playlistDetail,.userPlaylist:
+        case .playlistDetail,.userPlaylist,.searchItem:
             return "GET"
         }
     }
@@ -205,6 +209,11 @@ class API {
         }
         task.resume()
        
+        
+    }
+    
+    func getSearchItem(completion: @escaping(Result<SearchItem,Error>) -> Void) {
+        makeBasicRequest(settings: .searchItem(search: "asitwas"), bodyData: nil, onSuccess: {response in completion(.success(response))}, onError: {error in completion(.failure(error))})
         
     }
     

@@ -41,7 +41,6 @@ class addPlaylistViewController: UIViewController {
         textField.placeholder = " Enter a playlist name"
       
         textField.font = .systemFont(ofSize: 20, weight: .heavy)
-        textField.autocapitalizationType = .none
         textField.textColor = .systemGreen
         textField.autocorrectionType = .no
         textField.translatesAutoresizingMaskIntoConstraints = false
