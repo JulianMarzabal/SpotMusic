@@ -91,7 +91,9 @@ class API {
         var request = URLRequest(url: url)
         request.httpMethod = settings.method
         request.setValue(settings.contentType, forHTTPHeaderField: "Content-Type")
-        
+        if let bodyData = bodyData {
+            request.httpBody = bodyData
+        }
         if settings.requiresAuthentication {
             let token = getUserToken()
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
