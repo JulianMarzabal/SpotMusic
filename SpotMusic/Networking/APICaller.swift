@@ -11,7 +11,8 @@ enum RequestSettings {
     case login(authorization:String)
     case userPlaylist(userID:String)
     case playlistDetail(playlistID:String)
-    
+    case searchItem(search:String)
+
     var uri: String {
         switch self {
         case .login:
@@ -20,6 +21,8 @@ enum RequestSettings {
             return "/v1/users/\(userID)/playlists"
         case let .playlistDetail(playlistID):
             return "/playlists/\(playlistID)/tracks"
+        case let .searchItem(search):
+            return  "/v1/search?q=\(search)&type=track"
         
         }
     }
@@ -46,7 +49,7 @@ enum RequestSettings {
         switch self {
         case .login:
             return "POST"
-        case .playlistDetail,.userPlaylist:
+        case .playlistDetail,.userPlaylist,.searchItem:
             return "GET"
         }
     }
@@ -157,6 +160,11 @@ class API {
     }
     
     func getPlaylistDetails(playlistID:String, completion: @escaping (Result<PlaylistTrack,Error>) -> Void){
+        
+        
+        
+        //makeBasicRequest(settings: .playlistDetail(playlistID: playlistID), bodyData: nil, onSuccess: {response in completion(.success(response))}, onError: {error in completion(.failure(error))})
+    
         //let userToken = getUserToken()
    
         guard let url = URL(string: "https://api.spotify.com/v1/playlists/\(playlistID)/tracks")  else {return}
@@ -182,6 +190,14 @@ class API {
         }
         task.resume()
        
+        
+    }
+    
+    func searchItem(nameItem:String, completion: @escaping (Result<SearchItem,Error>) ->Void) {
+        makeBasicRequest(settings: .searchItem(search: nameItem),
+                         bodyData: nil,
+                         onSuccess: {response in completion(.success(response))}, onError: {error in completion(.failure(error))})
+      
         
     }
     

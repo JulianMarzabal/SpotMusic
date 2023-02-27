@@ -48,12 +48,12 @@ class HomeViewModel {
         
     }
     
-    func updateViewModel() {
+     func updateViewModel() {
         createModel()
         onSuccessfullUpdateReaction?()
     }
     
-    func selectPlaylistBy(id: String) {
+    private func selectPlaylistBy(id: String) {
        
         delegate?.selectPlaylist(id: id)
     }

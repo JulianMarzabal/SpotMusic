@@ -8,6 +8,17 @@
 import UIKit
 
 class SearchResultsViewController: UIViewController {
+    
+    var viewModel: SearchResultViewModel
+    
+    init(viewModel:SearchResultViewModel){
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(SearchItemTableViewCell.self, forCellReuseIdentifier: SearchItemTableViewCell.identifier)
@@ -24,6 +35,8 @@ class SearchResultsViewController: UIViewController {
         view.backgroundColor = .black
         view.addSubview(tableView)
         setupContraints()
+        viewModel.searchItemResult()
+        bindReaction()
 
        
     }
@@ -32,6 +45,10 @@ class SearchResultsViewController: UIViewController {
         tableView.frame = view.bounds
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.updateViewModel()
+    }
     
     func setupContraints() {
         NSLayoutConstraint.activate([
@@ -40,6 +57,16 @@ class SearchResultsViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+    
+    func bindReaction(){
+        viewModel.onSuccessfullUpdateReaction = {[weak self] in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+            
+            
+        }
     }
     
 
@@ -51,12 +78,15 @@ extension SearchResultsViewController:UITableViewDelegate,UITableViewDataSource 
         guard let cell = tableView.dequeueReusableCell(withIdentifier:SearchItemTableViewCell.identifier ,for: indexPath) as? SearchItemTableViewCell else {
             return UITableViewCell()
         }
+        let model = viewModel.searchModel[indexPath.row]
+        cell.configure(with: model)
         return cell
+        
        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return viewModel.searchModel.count
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 65
