@@ -10,6 +10,9 @@ import UIKit
 
 class HomeViewController: UIViewController {
     var viewModel: HomeViewModel
+    let searchResultViewController: SearchResultsViewController = .init(viewModel: .init())
+    
+    
     
     init(viewModel: HomeViewModel){
         self.viewModel = viewModel
@@ -22,8 +25,9 @@ class HomeViewController: UIViewController {
     
     
     
-    let searchController: UISearchController = {
-        let search = UISearchController(searchResultsController: SearchResultsViewController(viewModel: .init(nameItem: "")))
+    lazy var searchController: UISearchController = {
+        let search = UISearchController(searchResultsController: searchResultViewController)
+    
         search.searchBar.placeholder = "Listen your favourite music"
         search.searchBar.inputViewController?.definesPresentationContext = true
         //search.searchBar.backgroundColor = .white
@@ -160,10 +164,11 @@ extension HomeViewController: UISearchBarDelegate {
 extension HomeViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         
-        guard let text = searchController.searchBar.text?.lowercased().replacingOccurrences(of: " ", with: "") else {
+        guard let text = searchController.searchBar.text?.lowercased().replacingOccurrences(of: " ", with: "%20") else {
             return
         }
         print(text)
+        searchResultViewController.viewModel.text = text
         
         //self.searchViewModel.getSearchQuery(text)
         

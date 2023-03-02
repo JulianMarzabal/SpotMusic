@@ -9,7 +9,7 @@ import UIKit
 
 class SearchResultsViewController: UIViewController {
     
-    var viewModel: SearchResultViewModel
+    public var viewModel: SearchResultViewModel
     
     init(viewModel:SearchResultViewModel){
         self.viewModel = viewModel
@@ -90,6 +90,9 @@ extension SearchResultsViewController:UITableViewDelegate,UITableViewDataSource 
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 65
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        ""
     }
     
     

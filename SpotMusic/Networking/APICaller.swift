@@ -7,6 +7,12 @@
 
 import Foundation
 
+enum SpotiError:Error {
+    case notFound
+    case badResponse
+    
+}
+
 enum RequestSettings {
     case login(authorization:String)
     case userPlaylist(userID:String)
@@ -74,21 +80,21 @@ enum RequestSettings {
 }
 
 
-
-struct Constants {
-    let clientID = "19705411f2bd4583a2538641ef7c4856"
-    let clientEncoded = "MTk3MDU0MTFmMmJkNDU4M2EyNTM4NjQxZWY3YzQ4NTY6NDY5NWJmMmMwYTU1NDVjZjljNGU3ODE4OGNmNDRhM2Q="
-    static let userID = "21i2rjgjdpnbf74apyug7a2ta"
-   // let clientSecretID = "4695bf2c0a5545cf9c4e78188cf44a3d" this has to be private
+protocol APIProtocol {
+    func getAccessToken(completion: @escaping (Result<AuthenticationResponse,Error>) -> Void)
+    func getUserPlaylist(completion: @escaping (Result<UserPlaylistResponse,Error>) -> Void)
+    func getPlaylistDetails(playlistID:String, completion: @escaping (Result<PlaylistTrack,Error>) -> Void)
+    func searchItem(nameItem:String, completion: @escaping (Result<SearchItem,Error>) ->Void)
+   
 }
 
 
 
-class API {
+class API:APIProtocol {
     var authenticationManager = AuthManager()
     static let shared = API()
     
-    func makeBasicRequest<T:Decodable>(settings:RequestSettings,bodyData:Data?, onSuccess: @escaping (T) -> Void, onError: @escaping (Error) -> Void){
+    private func makeBasicRequest<T:Decodable>(settings:RequestSettings,bodyData:Data?, onSuccess: @escaping (T) -> Void, onError: @escaping (Error) -> Void){
         guard let url = URL(string: "\(settings.baseURL)\(settings.uri)")   else {return}
         
         var request = URLRequest(url: url)
@@ -119,7 +125,7 @@ class API {
                 }
                 return
             default:
-                onError(NSError.init(domain: "erro", code: 34))
+                onError(SpotiError.badResponse)
                 return
             }
             
@@ -130,7 +136,7 @@ class API {
                onSuccess(response)
                 
             } catch {
-                onError(NSError.init(domain: "error", code: 404))
+                onError(SpotiError.badResponse)
                 print(error)
             }
         

@@ -95,7 +95,7 @@ class PlaylistViewController: UIViewController {
     func setupUI(){
         view.addSubview(tableView)
         view.addSubview(imagView)
-        view.addSubview(footerMusic)
+        //view.addSubview(footerMusic)
         
         tableView.backgroundColor = .black
         
@@ -119,10 +119,10 @@ class PlaylistViewController: UIViewController {
             
             
             
-            footerMusic.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            footerMusic.bottomAnchor.constraint(equalTo: view.bottomAnchor,constant: -18),
-            footerMusic.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            footerMusic.heightAnchor.constraint(equalToConstant: 80)
+            //footerMusic.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            //footerMusic.bottomAnchor.constraint(equalTo: view.bottomAnchor,constant: -18),
+            //footerMusic.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            //footerMusic.heightAnchor.constraint(equalToConstant: 80)
         
         
         ])

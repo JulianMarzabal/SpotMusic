@@ -19,11 +19,12 @@ class HomeViewModel {
     //var imagePlaylist: [UserPlaylistImage] = [UserPlaylistImage]()
     var onSuccessfullUpdateReaction:  (() -> Void)?
     var playlistHomeModel: [PlaylistsHomeModel] = []
+    var api:APIProtocol = API.shared
     
     
    func getPlaylist() {
      
-       API.shared.getUserPlaylist { [weak self] results in
+       api.getUserPlaylist { [weak self] results in
            switch results {
            case .success(let playlists):
                print("all is ok")

@@ -12,17 +12,22 @@ class SearchResultViewModel{
     
     var searchItem:[TracksItem] = [TracksItem]()
     var searchModel:[SearchModel] = []
-    var nameItem:String
+    var api:APIProtocol = API.shared
+   
     var onSuccessfullUpdateReaction:  (() -> Void)?
-    
-    init(nameItem:String){
-        self.nameItem = nameItem
+    public var text:String = ""{
+        didSet{
+            self.searchItemResult()
+        }
     }
+    
+   
     
     
     
     func searchItemResult(){
-        API.shared.searchItem(nameItem: "lospalmeras") { [weak self] responses in
+        
+        api.searchItem(nameItem: self.text) { [weak self] responses in
             switch responses {
             case .success(let items):
                 self?.searchItem = items.tracks.items
@@ -38,10 +43,7 @@ class SearchResultViewModel{
        
         
     }
-    func getSearchQuery(_ query:String){
-        self.nameItem = query
-    }
-    
+   
     private func createModel() {
         searchModel = []
         for item in searchItem {
