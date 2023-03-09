@@ -15,7 +15,7 @@ class SearchResultViewModel{
     var api:APIProtocol = API.shared
    
     var onSuccessfullUpdateReaction:  (() -> Void)?
-    public var text:String = ""{
+    public var text: String = ""{
         didSet{
             self.searchItemResult()
         }

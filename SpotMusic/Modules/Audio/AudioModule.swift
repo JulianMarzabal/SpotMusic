@@ -9,8 +9,14 @@ import Foundation
 import AVFAudio
 
 
+protocol AudioModuleProtocol:AnyObject {
+    func loadMusic(url:URL)
+    func stopMusic()
+    
+}
 
-class AudioModule {
+
+class AudioModule:AudioModuleProtocol {
    
     
     var audioPlayer: AVAudioPlayer = .init()

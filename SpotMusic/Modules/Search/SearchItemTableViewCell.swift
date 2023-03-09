@@ -108,7 +108,6 @@ class SearchItemTableViewCell: UITableViewCell {
         titleSongLabel.text = model.name
         artistLabel.text = model.artist
         popularityLabel.text =  String(model.popularity)
-        let localImage = "https://i.scdn.co/image/ab67616d0000b273a56268c7c8c09366e91042db"
         guard let url = URL(string: model.image)else { return }
         imagView.sd_setImage(with: url)
         

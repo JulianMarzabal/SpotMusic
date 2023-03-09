@@ -34,6 +34,8 @@ class PlaylistTableViewCell: UITableViewCell {
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "shakira")
+        imageView.layer.cornerRadius = 4
+        imageView.clipsToBounds = true
         return imageView
     }()
     lazy var button: UIButton = {
@@ -43,6 +45,8 @@ class PlaylistTableViewCell: UITableViewCell {
         button.tintColor = .white
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action:#selector(pressButton) , for: .touchUpInside)
+        button.layer.cornerRadius = 4
+        button.clipsToBounds = true
         return button
     }()
     lazy var titleSongLabel: UILabel = {

@@ -14,6 +14,7 @@ var audioMusic: AVAudioPlayer?
 
 class PlaylistViewController: UIViewController {
     var viewmodel: PlaylistViewModel
+    var audiomodule: AudioModule = .init()
     
    
     
@@ -164,6 +165,10 @@ extension PlaylistViewController: UITableViewDataSource, UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 65
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
     
     

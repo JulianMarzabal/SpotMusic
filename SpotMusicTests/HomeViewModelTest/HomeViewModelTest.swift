@@ -9,7 +9,7 @@ import XCTest
 @testable import SpotMusic
 
 
-class SpotMusicTests: XCTestCase {
+class HomeviewModelTest: XCTestCase {
     var sut: HomeViewModel!
     var api: ApiMock!
     var spy: HomeViewSpy!
@@ -31,7 +31,7 @@ class SpotMusicTests: XCTestCase {
         spy = nil
     }
 
-    func testExample() throws {
+    func testGetUserPlaylist() throws {
         var callBackHasbeenCalled = false
         api.userPlaylistResponse = .success(.init(items: [.init(collaborative: true, description: "good", externalUrls: "", href: "122334", id: "2", images: [], name: "duro de matar", userPlaylistPublic: true, snapshotID: "", type: "movie", uri: "")]))
         sut.onSuccessfullUpdateReaction = {
@@ -46,7 +46,7 @@ class SpotMusicTests: XCTestCase {
   
     }
     
-    func testFailure() throws {
+    func testGetUserPlaylistFailure() throws {
         var callBackHasbeenCalled = false
         api.userPlaylistResponse = .failure(SpotiError.badResponse)
         sut.onSuccessfullUpdateReaction = {
@@ -57,11 +57,27 @@ class SpotMusicTests: XCTestCase {
         XCTAssertFalse(callBackHasbeenCalled)
     }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
+    func testUpdateViewModel() throws {
+        var updateViewModelSuccess = false
+        sut.onSuccessfullUpdateReaction = {
+            updateViewModelSuccess = true
         }
+        sut.updateViewModel()
+        
+        XCTAssert(updateViewModelSuccess)
+        
+    }
+    
+    func testSelectPlaylistByID() throws {
+        let playlistID = "2"
+                
+        sut.delegate?.selectPlaylist(id: playlistID)
+       
+        
+        XCTAssert(spy.selectPlaylistCalled)
+        XCTAssertEqual(spy.selectPlaylistValue, playlistID)
+      
+        
     }
 
 }

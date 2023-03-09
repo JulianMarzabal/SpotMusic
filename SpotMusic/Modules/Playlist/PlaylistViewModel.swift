@@ -13,10 +13,11 @@ class PlaylistViewModel {
     var playlistByID: [Item] = [Item]()
     var myPlaylistModel: [myPlaylistModel] = []
     var onSuccessfullUpdateReaction:  (() -> Void)?
-    var audioModule: AudioModule = .init()
+    var audioModule: AudioModuleProtocol = AudioModule()
     var musicSound: AVAudioPlayer?
     var cellModel: [PlaylistTableViewModel] = []
     var footerModel: [FooterMusicViewModel] = []
+    var api:APIProtocol = API.shared
  
     var songPlaying: String?
     var playlistID: String
@@ -61,6 +62,7 @@ class PlaylistViewModel {
         
         guard let url = URL(string: myplaylistSong.previewURL) else {return}
         songPlaying = myplaylistSong.name
+         
         audioModule.loadMusic(url: url)
         self.updateCells()
         
@@ -68,7 +70,7 @@ class PlaylistViewModel {
 
     
     func getPlaylistByID() {
-        API.shared.getPlaylistDetails(playlistID: playlistID) { [weak self] results in
+        api.getPlaylistDetails(playlistID: playlistID) { [weak self] results in
             switch results {
             case .success(let playlistByID):
                 self?.playlistByID = playlistByID.itemsList
@@ -104,6 +106,12 @@ class PlaylistViewModel {
         createModel()
 
         onSuccessfullUpdateReaction?()
+        
+    }
+    
+    func listenSongBy(index:Int) {
+    
+   
         
     }
     

@@ -92,7 +92,7 @@ extension SearchResultsViewController:UITableViewDelegate,UITableViewDataSource 
         return 65
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        ""
+        
     }
     
     
