@@ -16,15 +16,12 @@ class PlaylistViewModel {
     var audioModule: AudioModuleProtocol = AudioModule()
     var musicSound: AVAudioPlayer?
     var cellModel: [PlaylistTableViewModel] = []
-    var footerModel: [FooterMusicViewModel] = []
     var api:APIProtocol = API.shared
  
     var songPlaying: String?
     var playlistID: String
     var onImageChange: ((String) -> Void)?
-    var onplayingMusic: (()-> Void)?
-    var onStopMusic: (() -> Void)?
-    var onProgressMusic: ((Float) -> Void)?
+   
    
     
     
@@ -42,12 +39,7 @@ class PlaylistViewModel {
         self.onSuccessfullUpdateReaction?()
     }
     
-    func updateFooterMusic() {
-        footerModel = myPlaylistModel.map({ [weak self] model in
-            FooterMusicViewModel.init(isPlaying: model.name == songPlaying, nameSong: model.name, urlImage: model.imageURL, handler: {[weak self] in self?.handleSong(myplaylistSong: model)})
-        })
-        self.onSuccessfullUpdateReaction?()
-    }
+ 
     
     
     func handleSong(myplaylistSong: myPlaylistModel){
@@ -76,7 +68,6 @@ class PlaylistViewModel {
                 self?.playlistByID = playlistByID.itemsList
                 self?.createModel()
                 self?.updateCells()
-                self?.updateFooterMusic()
                 self?.onImageChange?(playlistByID.itemsList.first?.track.album.images.first?.url ?? "")
                 print("PlaylistByid ok")
                 //7self?.createModel()

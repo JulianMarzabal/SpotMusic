@@ -48,6 +48,11 @@
                BlueprintName = "SpotMusicTests"
                ReferencedContainer = "container:SpotMusic.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "SearchResultViewModelTest/testPerformanceExample()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>

@@ -26,7 +26,7 @@ class MusicCollectionViewCell: UICollectionViewCell {
         //let image = UIImage(systemName: "music.quarternote.3")
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 4
+        imageView.layer.cornerRadius = 2
         
         
         //imageView.image = image

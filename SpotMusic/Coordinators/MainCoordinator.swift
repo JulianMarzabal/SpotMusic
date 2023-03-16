@@ -26,13 +26,17 @@ class MainCoordinator {
     
     
     
-    
-    
 }
+    
+    
+
 
 extension MainCoordinator: HomeViewDelegate {
     func toAddPlaylistView() {
-        let vc = addPlaylistViewController()
+        let vm = AddPlaylistViewModel()
+        let vc = AddPlaylistViewController(viewmodel: vm)
+        vc.delegate = self
+      
         navigationController.pushViewController(vc, animated: false)
     }
     
@@ -43,5 +47,24 @@ extension MainCoordinator: HomeViewDelegate {
         navigationController.pushViewController(vc, animated: false)
     }
     
+}
+
+extension MainCoordinator:AddPlaylistViewControllerDelegate {
+    func onNewPlaylistCreated() {
+        navigationController.popViewController(animated: true)
+    }
+    
     
 }
+
+
+    
+    
+
+    
+    
+
+
+    
+    
+

@@ -18,6 +18,7 @@ enum RequestSettings {
     case userPlaylist(userID:String)
     case playlistDetail(playlistID:String)
     case searchItem(search:String)
+    case createPlaylist(userID:String)
 
     var uri: String {
         switch self {
@@ -29,6 +30,8 @@ enum RequestSettings {
             return "/playlists/\(playlistID)/tracks"
         case let .searchItem(search):
             return  "/v1/search?q=\(search)&type=track"
+        case let .createPlaylist(userID):
+            return "v1/users/\(userID)/playlists"
         
         }
     }
@@ -53,7 +56,7 @@ enum RequestSettings {
     
     var method: String {
         switch self {
-        case .login:
+        case .login,.createPlaylist:
             return "POST"
         case .playlistDetail,.userPlaylist,.searchItem:
             return "GET"

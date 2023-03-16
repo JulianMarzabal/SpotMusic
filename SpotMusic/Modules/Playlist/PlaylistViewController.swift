@@ -43,7 +43,7 @@ class PlaylistViewController: UIViewController {
         return imageView
     }()
     
-    lazy var footerMusic = FooterMusicView()
+  
   
 
     override func viewDidLoad() {
@@ -63,7 +63,7 @@ class PlaylistViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         viewmodel.updateViewModel()
     }
-    private func bindReaction(){
+     func bindReaction(){
         viewmodel.onSuccessfullUpdateReaction = { [weak self] in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
@@ -74,19 +74,7 @@ class PlaylistViewController: UIViewController {
                 self?.imagView.sd_setImage(with: .init(string: imageURL))
             }
         }
-        viewmodel.onplayingMusic = { [weak self]  in
-            
-            self?.footerMusic.playmusic()
-        }
         
-        viewmodel.onStopMusic = { [weak self]  in
-            
-            self?.footerMusic.stopMusic()
-        }
-        
-        viewmodel.onProgressMusic = { [weak self] progress in
-            self?.footerMusic.progressMusic(progress: progress)
-        }
         
         
     }
@@ -141,7 +129,7 @@ class PlaylistViewController: UIViewController {
 
 extension PlaylistViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewmodel.myPlaylistModel.count
+        return viewmodel.cellModel.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
