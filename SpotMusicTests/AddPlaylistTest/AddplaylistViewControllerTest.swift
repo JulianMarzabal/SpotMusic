@@ -9,12 +9,12 @@ import XCTest
 @testable import SpotMusic
 
 class AddplaylistViewControllerTest: XCTestCase {
-    var sut: addPlaylistViewController!
+    var sut: AddPlaylistViewController!
     var viewmodel: AddPlaylistViewModel!
 
     override func setUpWithError() throws {
     viewmodel = AddPlaylistViewModel()
-    sut = addPlaylistViewController(viewmodel: viewmodel)
+    sut = AddPlaylistViewController(viewmodel: viewmodel)
     }
 
     override func tearDownWithError() throws {

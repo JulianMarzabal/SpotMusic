@@ -7,9 +7,15 @@
 
 import Foundation
 @testable import SpotMusic
+import UIKit
 
 
-class PromptDelegateMock: PromptPlaylistCreatedDelegate {
+class PromptDelegateMock:UIView, PromptPlaylistCreatedDelegate {
+
+    func onDoneTapped() {
+        ""
+    }
+    
     var toHomeViewControllerHasBeenCalled = false
     func toHomeViewController() {
     toHomeViewControllerHasBeenCalled = true

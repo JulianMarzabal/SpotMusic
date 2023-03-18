@@ -36,9 +36,9 @@ class PopUpViewController:UIViewController {
         
         NSLayoutConstraint.activate([
             contentView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            contentView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            contentView.heightAnchor.constraint(equalToConstant: 150),
-            contentView.widthAnchor.constraint(equalToConstant: 150)
+            contentView.centerYAnchor.constraint(equalTo: view.centerYAnchor,constant: -40),
+            contentView.heightAnchor.constraint(equalToConstant: 200),
+            contentView.widthAnchor.constraint(equalToConstant: 250)
         ])
    
         

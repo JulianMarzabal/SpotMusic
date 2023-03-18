@@ -9,13 +9,13 @@ import XCTest
 @testable import SpotMusic
 
 class PromptTest: XCTestCase {
-    var sut: PromptPlaylistCreated!
+    var sut: PromptPlaylistCreatedView!
     var delegate: PromptDelegateMock!
 
     override func setUpWithError() throws {
-        sut = PromptPlaylistCreated()
+        sut = PromptPlaylistCreatedView(onTapped: {})
         delegate = PromptDelegateMock()
-        sut.delegate = delegate
+       
     }
 
     override func tearDownWithError() throws {
@@ -36,11 +36,7 @@ class PromptTest: XCTestCase {
         XCTAssertEqual(sut.button.layer.cornerRadius, 9)
         XCTAssertEqual(sut.button.tintColor, .white)
     }
-    func testToHomeViewControllerCalled() throws {
-        
-           sut.button.sendActions(for: .touchUpInside)
-           XCTAssertTrue(delegate.toHomeViewControllerHasBeenCalled)
-       }
+   
 
     
 

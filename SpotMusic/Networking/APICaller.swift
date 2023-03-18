@@ -25,7 +25,7 @@ enum RequestSettings {
         case .login:
             return "/api/token"
         case let .userPlaylist(userID):
-            return "/v1/users/\(userID)/playlists"
+            return "/v1/users/\(userID)/playlists?limit=50&offset=0"
         case let .playlistDetail(playlistID):
             return "/playlists/\(playlistID)/tracks"
         case let .searchItem(search):

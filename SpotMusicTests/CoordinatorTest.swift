@@ -40,7 +40,7 @@ class CoordinatorTest: XCTestCase {
     func testToAddView() throws {
         sut.toAddPlaylistView()
         
-        XCTAssertNotNil(navigationController.pushedViewController as? addPlaylistViewController)
+        XCTAssertNotNil(navigationController.pushedViewController as? AddPlaylistViewController)
         
     }
 
