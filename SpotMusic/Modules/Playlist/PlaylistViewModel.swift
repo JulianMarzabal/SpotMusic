@@ -20,14 +20,16 @@ class PlaylistViewModel {
  
     var songPlaying: String?
     var playlistID: String
+    var isOwner:Bool
     var onImageChange: ((String) -> Void)?
    
    
     
     
     
-    init(playlistID:String){
+    init(playlistID:String,isOwner:Bool){
         self.playlistID = playlistID
+        self.isOwner = isOwner
     }
     
     
@@ -59,6 +61,8 @@ class PlaylistViewModel {
         self.updateCells()
         
     }
+    
+    
 
     
     func getPlaylistByID() {
@@ -94,17 +98,16 @@ class PlaylistViewModel {
     }
   
     func updateViewModel() {
+        if myPlaylistModel.isEmpty {
+            print("is empty")
+        }
         createModel()
 
         onSuccessfullUpdateReaction?()
         
     }
     
-    func listenSongBy(index:Int) {
     
-   
-        
-    }
     
 }
     

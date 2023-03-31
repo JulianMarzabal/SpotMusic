@@ -8,7 +8,7 @@
 import Foundation
 
 protocol HomeViewDelegate:AnyObject {
-    func selectPlaylist(id:String)
+    func selectPlaylist(id:String,isOwner:Bool)
     func toAddPlaylistView()
     
 }
@@ -21,8 +21,12 @@ class HomeViewModel {
     var playlistHomeModel: [PlaylistsHomeModel] = []
     var api:APIProtocol = API.shared
     
+    func configureObservers(){
+        NotificationCenter.default.addObserver(self, selector: #selector(getPlaylist), name: .init(rawValue: "playlistObserver"), object: nil)
+    }
     
-   func getPlaylist() {
+    
+    @objc func getPlaylist() {
      
        api.getUserPlaylist { [weak self] results in
            switch results {
@@ -43,7 +47,7 @@ class HomeViewModel {
     private func createModel(){
         playlistHomeModel = []
         for track in playlist {
-            playlistHomeModel.append(.init(description: track.description, id: track.id, images:track.images, name: track.name))
+            playlistHomeModel.append(.init(description: track.description, id: track.id, images:track.images, name: track.name, isOwner: track.owner.id == API.userID  ))
         }
         
         
@@ -54,9 +58,10 @@ class HomeViewModel {
         onSuccessfullUpdateReaction?()
     }
     
-    private func selectPlaylistBy(id: String) {
+     func selectPlaylistBy(index: Int) {
+         let playlist = playlistHomeModel[index]
        
-        delegate?.selectPlaylist(id: id)
+         delegate?.selectPlaylist(id: playlist.id, isOwner: playlist.isOwner)
     }
     
 }

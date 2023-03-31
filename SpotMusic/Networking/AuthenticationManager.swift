@@ -18,6 +18,7 @@ class AuthManager {
                     let acessToken = authenticationResponse.access_token.data(using: .utf8)!
                
                     try KeychainManager.save(token: acessToken, account: "Usertoken")
+                    ServiceManager.shared.isOAuth2 = false
                     completion()
                 }catch{
                     

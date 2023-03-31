@@ -23,6 +23,7 @@ struct UserPlaylistResponse: Codable{
 
 struct UserPlaylist: Codable {
     let collaborative: Bool
+    let owner: OwnerPlaylist
         let description: String
         let externalUrls: String?
         let href: String
@@ -33,6 +34,12 @@ struct UserPlaylist: Codable {
         let snapshotID: String?
         //let tracks: String?
         let type, uri: String?
+       
+    
+}
+struct OwnerPlaylist:Codable {
+    let id: String
+    
 }
  
 
@@ -42,6 +49,8 @@ struct UserPlaylistImage: Codable {
     let width: Int?
    
 }
+
+
 
 
 // GET Playlist by ID

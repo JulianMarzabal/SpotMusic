@@ -7,10 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E1244A629CA631F0031B121 /* WebKitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1244A529CA631F0031B121 /* WebKitModel.swift */; };
+		1E1244B829CD05610031B121 /* SpotMusicUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1244B729CD05610031B121 /* SpotMusicUITests.swift */; };
+		1E1244BA29CD05610031B121 /* SpotMusicUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1244B929CD05610031B121 /* SpotMusicUITestsLaunchTests.swift */; };
 		1E18439B29BEB4A0002F792D /* AddplaylistViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E18439A29BEB4A0002F792D /* AddplaylistViewControllerTest.swift */; };
 		1E2145E1298C5A5D00109F03 /* Models2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2145E0298C5A5D00109F03 /* Models2.swift */; };
 		1E2145E4298C5F3000109F03 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2145E3298C5F3000109F03 /* AuthenticationManager.swift */; };
 		1E21F663297F51B2004B1FA9 /* MusicCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E21F662297F51B2004B1FA9 /* MusicCollectionViewCell.swift */; };
+		1E2B78C629D629EB00687CBA /* AddMusicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2B78C529D629EB00687CBA /* AddMusicTableViewCell.swift */; };
 		1E2BA15729ABD22300CBD527 /* SearchResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2BA15629ABD22300CBD527 /* SearchResponseModel.swift */; };
 		1E2BB0852980886900608DE5 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2BB0842980886900608DE5 /* SearchResultsViewController.swift */; };
 		1E33E35F29B6BCA7007F9FAE /* SearchResultViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E33E35E29B6BCA7007F9FAE /* SearchResultViewControllerTest.swift */; };
@@ -41,10 +45,18 @@
 		1E53036529B1465D00685CB0 /* HomeViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E53036429B1465D00685CB0 /* HomeViewModelTest.swift */; };
 		1E53036C29B1522B00685CB0 /* APIMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E53036B29B1522B00685CB0 /* APIMock.swift */; };
 		1E53036E29B153D700685CB0 /* HomeViewSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E53036D29B153D700685CB0 /* HomeViewSpy.swift */; };
+		1E53E6AD29C752A3009CBCE2 /* WebKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E53E6AC29C752A3009CBCE2 /* WebKit.swift */; };
+		1E53E6B029C7AF7E009CBCE2 /* WebKitAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E53E6AF29C7AF7E009CBCE2 /* WebKitAuthViewModel.swift */; };
+		1E53E6B229C7AF9C009CBCE2 /* WebKitAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E53E6B129C7AF9C009CBCE2 /* WebKitAuthViewController.swift */; };
 		1E582A9129A29E5E00BB97F3 /* AddPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E582A9029A29E5E00BB97F3 /* AddPlaylistViewController.swift */; };
+		1E64AE1729D0822000F8A64F /* AddMusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E64AE1629D0822000F8A64F /* AddMusicViewController.swift */; };
+		1E64AE1A29D0A0D000F8A64F /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E64AE1929D0A0D000F8A64F /* Colors.swift */; };
+		1E64AE1C29D11CCC00F8A64F /* RecommendationsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E64AE1B29D11CCC00F8A64F /* RecommendationsModel.swift */; };
+		1E64AE1E29D11F1200F8A64F /* AddMusicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E64AE1D29D11F1200F8A64F /* AddMusicViewModel.swift */; };
 		1E655E2D29BA82EB00B5D51B /* AudioModuleMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E655E2C29BA82EB00B5D51B /* AudioModuleMock.swift */; };
 		1E655E2F29BA887900B5D51B /* NavigationControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E655E2E29BA887900B5D51B /* NavigationControllerMock.swift */; };
 		1E655E3329BA896000B5D51B /* CoordinatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E655E3229BA896000B5D51B /* CoordinatorTest.swift */; };
+		1E6CE30029CE677D00F8CB2D /* AddPlaylistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6CE2FF29CE677D00F8CB2D /* AddPlaylistModel.swift */; };
 		1EA9E3192986EEBC00A3693A /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA9E3182986EEBC00A3693A /* Models.swift */; };
 		1EA9E31B2986FDAD00A3693A /* PlaylistsHomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA9E31A2986FDAD00A3693A /* PlaylistsHomeModel.swift */; };
 		1EA9E31E29871DC200A3693A /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 1EA9E31D29871DC200A3693A /* SDWebImage */; };
@@ -59,6 +71,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		1E1244BB29CD05610031B121 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1E49B567297D793C00698D1F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1E49B56E297D793C00698D1F;
+			remoteInfo = SpotMusic;
+		};
 		1E53036629B1465D00685CB0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1E49B567297D793C00698D1F /* Project object */;
@@ -69,10 +88,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1E1244A529CA631F0031B121 /* WebKitModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebKitModel.swift; sourceTree = "<group>"; };
+		1E1244B529CD05610031B121 /* SpotMusicUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpotMusicUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E1244B729CD05610031B121 /* SpotMusicUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotMusicUITests.swift; sourceTree = "<group>"; };
+		1E1244B929CD05610031B121 /* SpotMusicUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotMusicUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		1E18439A29BEB4A0002F792D /* AddplaylistViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddplaylistViewControllerTest.swift; sourceTree = "<group>"; };
 		1E2145E0298C5A5D00109F03 /* Models2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models2.swift; sourceTree = "<group>"; };
 		1E2145E3298C5F3000109F03 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		1E21F662297F51B2004B1FA9 /* MusicCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicCollectionViewCell.swift; sourceTree = "<group>"; };
+		1E2B78C529D629EB00687CBA /* AddMusicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMusicTableViewCell.swift; sourceTree = "<group>"; };
 		1E2BA15629ABD22300CBD527 /* SearchResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponseModel.swift; sourceTree = "<group>"; };
 		1E2BB0842980886900608DE5 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		1E33E35E29B6BCA7007F9FAE /* SearchResultViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewControllerTest.swift; sourceTree = "<group>"; };
@@ -106,10 +130,18 @@
 		1E53036429B1465D00685CB0 /* HomeViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelTest.swift; sourceTree = "<group>"; };
 		1E53036B29B1522B00685CB0 /* APIMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIMock.swift; sourceTree = "<group>"; };
 		1E53036D29B153D700685CB0 /* HomeViewSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewSpy.swift; sourceTree = "<group>"; };
+		1E53E6AC29C752A3009CBCE2 /* WebKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebKit.swift; sourceTree = "<group>"; };
+		1E53E6AF29C7AF7E009CBCE2 /* WebKitAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebKitAuthViewModel.swift; sourceTree = "<group>"; };
+		1E53E6B129C7AF9C009CBCE2 /* WebKitAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebKitAuthViewController.swift; sourceTree = "<group>"; };
 		1E582A9029A29E5E00BB97F3 /* AddPlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlaylistViewController.swift; sourceTree = "<group>"; };
+		1E64AE1629D0822000F8A64F /* AddMusicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMusicViewController.swift; sourceTree = "<group>"; };
+		1E64AE1929D0A0D000F8A64F /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		1E64AE1B29D11CCC00F8A64F /* RecommendationsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationsModel.swift; sourceTree = "<group>"; };
+		1E64AE1D29D11F1200F8A64F /* AddMusicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMusicViewModel.swift; sourceTree = "<group>"; };
 		1E655E2C29BA82EB00B5D51B /* AudioModuleMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioModuleMock.swift; sourceTree = "<group>"; };
 		1E655E2E29BA887900B5D51B /* NavigationControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerMock.swift; sourceTree = "<group>"; };
 		1E655E3229BA896000B5D51B /* CoordinatorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorTest.swift; sourceTree = "<group>"; };
+		1E6CE2FF29CE677D00F8CB2D /* AddPlaylistModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlaylistModel.swift; sourceTree = "<group>"; };
 		1EA9E3182986EEBC00A3693A /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		1EA9E31A2986FDAD00A3693A /* PlaylistsHomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistsHomeModel.swift; sourceTree = "<group>"; };
 		1EA9E32229873AF500A3693A /* PlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; };
@@ -122,6 +154,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1E1244B229CD05610031B121 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1E49B56C297D793C00698D1F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -141,6 +180,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E1244B629CD05610031B121 /* SpotMusicUITests */ = {
+			isa = PBXGroup;
+			children = (
+				1E1244B729CD05610031B121 /* SpotMusicUITests.swift */,
+				1E1244B929CD05610031B121 /* SpotMusicUITestsLaunchTests.swift */,
+			);
+			path = SpotMusicUITests;
+			sourceTree = "<group>";
+		};
 		1E18439929BEB484002F792D /* AddPlaylistTest */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +247,7 @@
 			children = (
 				1E49B571297D793C00698D1F /* SpotMusic */,
 				1E53036329B1465D00685CB0 /* SpotMusicTests */,
+				1E1244B629CD05610031B121 /* SpotMusicUITests */,
 				1E49B570297D793C00698D1F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -208,6 +257,7 @@
 			children = (
 				1E49B56F297D793C00698D1F /* SpotMusic.app */,
 				1E53036229B1465D00685CB0 /* SpotMusicTests.xctest */,
+				1E1244B529CD05610031B121 /* SpotMusicUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -215,6 +265,7 @@
 		1E49B571297D793C00698D1F /* SpotMusic */ = {
 			isa = PBXGroup;
 			children = (
+				1E64AE1829D0A0C200F8A64F /* Extensions */,
 				1E2BB0822980875800608DE5 /* Views */,
 				1E49B590297DDFF800698D1F /* Modules */,
 				1E49B58D297DDB9400698D1F /* Coordinators */,
@@ -240,6 +291,7 @@
 				1E2BA15629ABD22300CBD527 /* SearchResponseModel.swift */,
 				1E2145E0298C5A5D00109F03 /* Models2.swift */,
 				1E49B58B297DCCBD00698D1F /* KeychainManager.swift */,
+				1E53E6AC29C752A3009CBCE2 /* WebKit.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -255,8 +307,10 @@
 		1E49B590297DDFF800698D1F /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				1E53E6AE29C7AF54009CBCE2 /* WebKitAuth */,
 				1E7642B129A58E6D0001CEAA /* Search */,
 				1E582A8F29A29E3600BB97F3 /* AddPlaylist */,
+				1E64AE1529D081F300F8A64F /* AddMusic */,
 				1E4A8B9B2995989800D0714D /* Audio */,
 				1EA9E32129873AC000A3693A /* Playlist */,
 				1E2BB083298087E600608DE5 /* Home */,
@@ -305,14 +359,44 @@
 			path = PlaylistTest;
 			sourceTree = "<group>";
 		};
+		1E53E6AE29C7AF54009CBCE2 /* WebKitAuth */ = {
+			isa = PBXGroup;
+			children = (
+				1E53E6AF29C7AF7E009CBCE2 /* WebKitAuthViewModel.swift */,
+				1E53E6B129C7AF9C009CBCE2 /* WebKitAuthViewController.swift */,
+				1E1244A529CA631F0031B121 /* WebKitModel.swift */,
+			);
+			path = WebKitAuth;
+			sourceTree = "<group>";
+		};
 		1E582A8F29A29E3600BB97F3 /* AddPlaylist */ = {
 			isa = PBXGroup;
 			children = (
 				1E582A9029A29E5E00BB97F3 /* AddPlaylistViewController.swift */,
 				1E341EFB29C13C6A0098DF71 /* AddPlaylistViewModel.swift */,
 				1E341EF929C135D80098DF71 /* PromptPlaylistCreatedView.swift */,
+				1E6CE2FF29CE677D00F8CB2D /* AddPlaylistModel.swift */,
 			);
 			path = AddPlaylist;
+			sourceTree = "<group>";
+		};
+		1E64AE1529D081F300F8A64F /* AddMusic */ = {
+			isa = PBXGroup;
+			children = (
+				1E64AE1629D0822000F8A64F /* AddMusicViewController.swift */,
+				1E64AE1B29D11CCC00F8A64F /* RecommendationsModel.swift */,
+				1E64AE1D29D11F1200F8A64F /* AddMusicViewModel.swift */,
+				1E2B78C529D629EB00687CBA /* AddMusicTableViewCell.swift */,
+			);
+			path = AddMusic;
+			sourceTree = "<group>";
+		};
+		1E64AE1829D0A0C200F8A64F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1E64AE1929D0A0D000F8A64F /* Colors.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		1E655E2B29BA82C900B5D51B /* Mocks */ = {
@@ -368,6 +452,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1E1244B429CD05610031B121 /* SpotMusicUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1E1244BF29CD05610031B121 /* Build configuration list for PBXNativeTarget "SpotMusicUITests" */;
+			buildPhases = (
+				1E1244B129CD05610031B121 /* Sources */,
+				1E1244B229CD05610031B121 /* Frameworks */,
+				1E1244B329CD05610031B121 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1E1244BC29CD05610031B121 /* PBXTargetDependency */,
+			);
+			name = SpotMusicUITests;
+			productName = SpotMusicUITests;
+			productReference = 1E1244B529CD05610031B121 /* SpotMusicUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		1E49B56E297D793C00698D1F /* SpotMusic */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1E49B583297D793F00698D1F /* Build configuration list for PBXNativeTarget "SpotMusic" */;
@@ -417,6 +519,10 @@
 				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1330;
 				TargetAttributes = {
+					1E1244B429CD05610031B121 = {
+						CreatedOnToolsVersion = 13.3.1;
+						TestTargetID = 1E49B56E297D793C00698D1F;
+					};
 					1E49B56E297D793C00698D1F = {
 						CreatedOnToolsVersion = 13.3.1;
 					};
@@ -444,11 +550,19 @@
 			targets = (
 				1E49B56E297D793C00698D1F /* SpotMusic */,
 				1E53036129B1465D00685CB0 /* SpotMusicTests */,
+				1E1244B429CD05610031B121 /* SpotMusicUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1E1244B329CD05610031B121 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1E49B56D297D793C00698D1F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -469,6 +583,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1E1244B129CD05610031B121 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E1244BA29CD05610031B121 /* SpotMusicUITestsLaunchTests.swift in Sources */,
+				1E1244B829CD05610031B121 /* SpotMusicUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1E49B56B297D793C00698D1F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -476,16 +599,22 @@
 				1EA9E3292989C56F00A3693A /* PlaylistViewModel.swift in Sources */,
 				1EA9E3192986EEBC00A3693A /* Models.swift in Sources */,
 				1E341EFC29C13C6A0098DF71 /* AddPlaylistViewModel.swift in Sources */,
+				1E64AE1A29D0A0D000F8A64F /* Colors.swift in Sources */,
 				1EA9E3272989C28900A3693A /* PlaylistModel.swift in Sources */,
 				1E2BA15729ABD22300CBD527 /* SearchResponseModel.swift in Sources */,
 				1E341EFA29C135D80098DF71 /* PromptPlaylistCreatedView.swift in Sources */,
 				1E38265329ABA827005466CD /* SearchModel.swift in Sources */,
+				1E64AE1C29D11CCC00F8A64F /* RecommendationsModel.swift in Sources */,
 				1E2145E4298C5F3000109F03 /* AuthenticationManager.swift in Sources */,
+				1E53E6B029C7AF7E009CBCE2 /* WebKitAuthViewModel.swift in Sources */,
+				1E2B78C629D629EB00687CBA /* AddMusicTableViewCell.swift in Sources */,
 				1E49B58A297DBC0300698D1F /* Help.swift in Sources */,
 				1EA9E31B2986FDAD00A3693A /* PlaylistsHomeModel.swift in Sources */,
 				1E38265129ABA44B005466CD /* SearchResultViewModel.swift in Sources */,
+				1E64AE1729D0822000F8A64F /* AddMusicViewController.swift in Sources */,
 				1E49B58F297DDBA800698D1F /* MainCoordinator.swift in Sources */,
 				1E49B58C297DCCBD00698D1F /* KeychainManager.swift in Sources */,
+				1E53E6B229C7AF9C009CBCE2 /* WebKitAuthViewController.swift in Sources */,
 				1E49B592297DE01000698D1F /* HomeViewModel.swift in Sources */,
 				1E21F663297F51B2004B1FA9 /* MusicCollectionViewCell.swift in Sources */,
 				1E2145E1298C5A5D00109F03 /* Models2.swift in Sources */,
@@ -495,9 +624,13 @@
 				1E582A9129A29E5E00BB97F3 /* AddPlaylistViewController.swift in Sources */,
 				1E4A8B9A2995988E00D0714D /* AudioModule.swift in Sources */,
 				1EA9E32529873CE700A3693A /* PlaylistTableViewCell.swift in Sources */,
+				1E1244A629CA631F0031B121 /* WebKitModel.swift in Sources */,
+				1E64AE1E29D11F1200F8A64F /* AddMusicViewModel.swift in Sources */,
 				1EB5FBE429A8080E00BF5440 /* SearchItemTableViewCell.swift in Sources */,
 				1E49B575297D793C00698D1F /* SceneDelegate.swift in Sources */,
 				1E49B588297D7A4000698D1F /* APICaller.swift in Sources */,
+				1E53E6AD29C752A3009CBCE2 /* WebKit.swift in Sources */,
+				1E6CE30029CE677D00F8CB2D /* AddPlaylistModel.swift in Sources */,
 				1EA9E32329873AF500A3693A /* PlaylistViewController.swift in Sources */,
 				1E2BB0852980886900608DE5 /* SearchResultsViewController.swift in Sources */,
 			);
@@ -530,6 +663,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		1E1244BC29CD05610031B121 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1E49B56E297D793C00698D1F /* SpotMusic */;
+			targetProxy = 1E1244BB29CD05610031B121 /* PBXContainerItemProxy */;
+		};
 		1E53036729B1465D00685CB0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 1E49B56E297D793C00698D1F /* SpotMusic */;
@@ -549,6 +687,40 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		1E1244BD29CD05610031B121 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5QYF925T95;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Marzabal.SpotMusicUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SpotMusic;
+			};
+			name = Debug;
+		};
+		1E1244BE29CD05610031B121 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5QYF925T95;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Marzabal.SpotMusicUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SpotMusic;
+			};
+			name = Release;
+		};
 		1E49B581297D793F00698D1F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -756,6 +928,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1E1244BF29CD05610031B121 /* Build configuration list for PBXNativeTarget "SpotMusicUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E1244BD29CD05610031B121 /* Debug */,
+				1E1244BE29CD05610031B121 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		1E49B56A297D793C00698D1F /* Build configuration list for PBXProject "SpotMusic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -69,9 +69,11 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        //API.shared.authorization()
         
         view.backgroundColor = .black
         bindReaction()
+        viewModel.configureObservers()
         setupUI()
         setupConstraints()
         viewModel.getPlaylist()
@@ -145,6 +147,7 @@ class HomeViewController: UIViewController {
     
     @objc func addPlaylist() {
         viewModel.delegate?.toAddPlaylistView()
+        
     }
         
     
@@ -205,7 +208,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         guard let  cell = collectionView.cellForItem(at: indexPath) as? MusicCollectionViewCell else {
             return
         }
-        viewModel.delegate?.selectPlaylist(id: viewModel.playlistHomeModel[indexPath.item].id!)
+        viewModel.selectPlaylistBy(index: indexPath.row)
+     
         print("cell\([indexPath.row])")
     }
     

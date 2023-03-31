@@ -10,6 +10,14 @@ import Foundation
 
 
 class ApiMock:APIProtocol {
+    func getAccesTokenOauth(code: String, completion: @escaping (Result<OauthTokenResponse, Error>) -> Void) {
+        
+    }
+    
+    func getAuthorization() -> URLRequest? {
+        return nil
+    }
+    
     var accesTokenResponse: Result<AuthenticationResponse, Error>?
     var userPlaylistResponse: Result<UserPlaylistResponse, Error>?
     var playlistDetailsByID: Result<PlaylistTrack, Error>?
