@@ -10,9 +10,11 @@ import Foundation
 
 struct PlaylistsHomeModel {
     let description: String?
-    let id: String?
+    let id: String
     let images: [UserPlaylistImage]?
     let name : String?
+    let isOwner: Bool
+    
 }
 
 

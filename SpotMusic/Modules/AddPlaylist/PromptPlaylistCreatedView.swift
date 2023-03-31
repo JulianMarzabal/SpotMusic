@@ -79,6 +79,7 @@ class PromptPlaylistCreatedView: UIView,ViewButtonProtocol {
     }
     
     @objc func goToHomeView(){
+        
         onTapped()
     }
 

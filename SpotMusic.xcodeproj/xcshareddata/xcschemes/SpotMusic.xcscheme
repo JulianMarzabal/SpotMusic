@@ -54,6 +54,16 @@
                </Test>
             </SkippedTests>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "1E1244B429CD05610031B121"
+               BuildableName = "SpotMusicUITests.xctest"
+               BlueprintName = "SpotMusicUITests"
+               ReferencedContainer = "container:SpotMusic.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

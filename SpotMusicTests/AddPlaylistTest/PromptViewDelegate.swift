@@ -13,7 +13,7 @@ import UIKit
 class PromptDelegateMock:UIView, PromptPlaylistCreatedDelegate {
 
     func onDoneTapped() {
-        ""
+        
     }
     
     var toHomeViewControllerHasBeenCalled = false

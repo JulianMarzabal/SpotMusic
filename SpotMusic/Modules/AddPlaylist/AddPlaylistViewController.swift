@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import WebKit
 
 protocol AddPlaylistViewControllerDelegate: AnyObject {
     func onNewPlaylistCreated()
@@ -85,6 +86,7 @@ class AddPlaylistViewController: UIViewController {
         view.backgroundColor = .black
         setupUI()
         setupConstraints()
+        manageOauthToken()
        
         
 
@@ -127,19 +129,54 @@ class AddPlaylistViewController: UIViewController {
             createButton.isEnabled = false
         }
     }
+    
+    
  
     
     
     
     @objc func playlistCreated() {
-     
-        let view = PromptPlaylistCreatedView(onTapped: {[weak self] in self?.delegate?.onNewPlaylistCreated()})
-        let vc = PopUpViewController(contentView: view)
-        navigationController?.present(vc, animated: true)
+        guard let playlistName = nameTextfield.text else { return }
+        viewmodel.createPlaylist(name: playlistName )
+        showPromptPlaylistCreatedView()
         
+        
+        
+    }
+    
+    func manageOauthToken() {
+        guard !ServiceManager.shared.isOAuth2 else {return}
+        let viewModel = WebKitAuthViewModel()
+        let webView = WKWebView()
+        let webKitVC = WebKitViewController(viewModel: viewModel, webView: webView)
+        navigationController?.pushViewController(webKitVC, animated: true)
+    }
+    func showPromptPlaylistCreatedView() {
+        let promptPlaylistCreatedView = PromptPlaylistCreatedView(onTapped: { [weak self] in
+            // Acciones a realizar cuando se toca el botón "OK" en PromptPlaylistCreatedView
+            self?.delegate?.onNewPlaylistCreated()
+            //self?.navigationController?.popViewController(animated: true)
+        })
+
+        let popUpViewController = PopUpViewController(contentView: promptPlaylistCreatedView)
+        popUpViewController.modalPresentationStyle = .overCurrentContext
+        popUpViewController.modalTransitionStyle = .crossDissolve
+        self.present(popUpViewController, animated: true, completion: nil)
+    }
+    
+    func bindReaction() {
+        viewmodel.onSuccessfullUpdateReaction = { [weak self] in
+            DispatchQueue.main.async {
+                
+            }
+            
+        }
     }
 
 }
+
+    
+
 
     
     

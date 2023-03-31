@@ -82,6 +82,13 @@ class PlaylistViewController: UIViewController {
 
     
     func setupUI(){
+        if viewmodel.isOwner {
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action:#selector(addTrackToPlaylist))
+            self.navigationItem.rightBarButtonItem?.tintColor = .white
+        }
+       
+        
+        
         view.addSubview(tableView)
         view.addSubview(imagView)
         //view.addSubview(footerMusic)
@@ -89,7 +96,9 @@ class PlaylistViewController: UIViewController {
         tableView.backgroundColor = .black
         
     }
-   
+    @objc func addTrackToPlaylist() {
+        
+    }
     
     func setConstraints() {
         NSLayoutConstraint.activate([
@@ -98,20 +107,12 @@ class PlaylistViewController: UIViewController {
             imagView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             imagView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             imagView.heightAnchor.constraint(equalToConstant:200),
-            //imagView.widthAnchor.constraint(equalToConstant: 200),
-           // imagView.bottomAnchor.constraint(equalTo: tableView.topAnchor,constant: 60),
             
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: imagView.bottomAnchor, constant: 60),
             
-            
-            
-            //footerMusic.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            //footerMusic.bottomAnchor.constraint(equalTo: view.bottomAnchor,constant: -18),
-            //footerMusic.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            //footerMusic.heightAnchor.constraint(equalToConstant: 80)
         
         
         ])
