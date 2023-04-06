@@ -14,6 +14,7 @@ enum SpotiError:Error {
     case notFound
     case badResponse
     case badURL
+    case badSerialization
     
 }
 
@@ -28,6 +29,7 @@ enum RequestSettings {
     case searchItem(search:String)
     case createPlaylist(userID:String, authorization:String)
     case getRecommendations(authorization:String)
+    case addItemsToPlaylist(playlistID:String, uri:String)
 
     var uri: String {
         switch self {
@@ -38,14 +40,15 @@ enum RequestSettings {
         case let .userPlaylist(userID):
             return "/v1/users/\(userID)/playlists?limit=50&offset=0"
         case let .playlistDetail(playlistID):
-            return "/playlists/\(playlistID)/tracks"
+            return "/v1/playlists/\(playlistID)/tracks"
         case let .searchItem(search):
             return  "/v1/search?q=\(search)&type=track"
         case let .createPlaylist(userID, _):
             return "/v1/users/\(userID)/playlists"
         case  .getRecommendations:
             return "/v1/recommendations"
-        
+        case let .addItemsToPlaylist(playlistID,_):
+            return "/v1/playlists/\(playlistID)/tracks"
         }
     }
     var baseURL:String {
@@ -60,16 +63,25 @@ enum RequestSettings {
     
     var requiresBasicAuthentication:Bool {
         switch self {
-        case .login, .createPlaylist:
+        case .login, .createPlaylist, .addItemsToPlaylist:
             return false
         default:
             return true
         }
     }
     
+    var requiresOAuthAuthentication:Bool {
+        switch self {
+        case .addItemsToPlaylist:
+            return true
+        default:
+            return false
+        }
+    }
+    
     var method: String {
         switch self {
-        case .login,.createPlaylist,.loginOAuth:
+        case .login,.createPlaylist,.loginOAuth, .addItemsToPlaylist:
             return "POST"
         case .playlistDetail,.userPlaylist,.searchItem,.authorization, .getRecommendations:
             return "GET"
@@ -94,6 +106,7 @@ enum RequestSettings {
             return authorization
         case .getRecommendations(let authorization):
             return authorization
+        
         default:
             return ""
         }
@@ -111,6 +124,7 @@ protocol APIProtocol {
     func getAuthorization() -> URLRequest?
     func createPlaylist(name:String, completion: @escaping (Result<CreatePlaylistResponse,Error>) -> Void)
     func getRecommendations(completion: @escaping (Result<TrackResponse,Error>) ->Void)
+    func addItemToPlaylist(playlistID:String, uri:String, completion:@escaping (Result<AddItemResponse,Error>) ->Void)
    
 }
 
@@ -118,7 +132,8 @@ protocol APIProtocol {
 
 class API:APIProtocol {
     
-    static var userID: String = "21i2rjgjdpnbf74apyug7a2ta"
+    //static var userID: String = "21i2rjgjdpnbf74apyug7a2ta"
+    
     
 
     
@@ -143,8 +158,12 @@ class API:APIProtocol {
             let token = getUserToken()
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
+        if settings.requiresOAuthAuthentication {
+            let OAuthToken = getOauthToken()
+            request.setValue("Bearer \(OAuthToken)", forHTTPHeaderField: "Authorization")
+        }
        
-        if !settings.autenticationType.isEmpty{
+      if !settings.autenticationType.isEmpty{
             request.setValue(settings.autenticationType, forHTTPHeaderField: "Authorization")
         }
         if let parameters = parameters {
@@ -172,6 +191,8 @@ class API:APIProtocol {
                 }
                 return
             default:
+                print("Status code: \(response.statusCode)")
+                   print("Response data: \(String(data: data, encoding: .utf8) ?? "No data")")
                 onError(SpotiError.badResponse)
                 return
             }
@@ -197,7 +218,7 @@ class API:APIProtocol {
         components?.queryItems = [
             URLQueryItem(name: "client_id", value: "19705411f2bd4583a2538641ef7c4856"),
             URLQueryItem(name: "response_type", value: "code"),
-            URLQueryItem(name: "scope", value: "playlist-modify-public"),
+            URLQueryItem(name: "scope", value: "playlist-modify-public playlist-modify-private"),
             URLQueryItem(name: "redirect_uri", value: "https://5acc-190-173-105-153.sa.ngrok.io/callback/")
         ]
         guard let url = components?.url else { return nil }
@@ -212,26 +233,30 @@ class API:APIProtocol {
         makeBasicRequest(settings: .loginOAuth(basicAuthorization:"Basic MTk3MDU0MTFmMmJkNDU4M2EyNTM4NjQxZWY3YzQ4NTY6NDY5NWJmMmMwYTU1NDVjZjljNGU3ODE4OGNmNDRhM2Q="), bodyData: "grant_type=authorization_code&code=\(code)&redirect_uri=\(uri)".data(using: .utf8), parameters: nil, onSuccess: {response in completion(.success(response))}, onError: {error in completion(.failure(error))})
         
         
-        
+       // "Basic MTk3MDU0MTFmMmJkNDU4M2EyNTM4NjQxZWY3YzQ4NTY6NDY5NWJmMmMwYTU1NDVjZjljNGU3ODE4OGNmNDRhM2Q="
         
     }
     
     func getAccessToken(completion: @escaping (Result<AuthenticationResponse,Error>) -> Void) {
-        makeBasicRequest(settings: .login(authorization: "Basic MTk3MDU0MTFmMmJkNDU4M2EyNTM4NjQxZWY3YzQ4NTY6NDY5NWJmMmMwYTU1NDVjZjljNGU3ODE4OGNmNDRhM2Q="), bodyData: "grant_type=client_credentials".data(using: .utf8), parameters: nil, onSuccess: {response in
+        makeBasicRequest(settings: .login(authorization:SpotMusicCredentials.authorization ), bodyData: "grant_type=client_credentials".data(using: .utf8), parameters: nil, onSuccess: {response in
             completion(.success(response))
-        }, onError: {error  in completion(.failure(error))})
+        }, onError: {error  in
+            print("Error in getAccessToken: \(error)")
+            completion(.failure(error))})
         
         
     }
         
     
     func getUserPlaylist(completion: @escaping (Result<UserPlaylistResponse,Error>) -> Void) {
-        print(API.userID)
+        print(SpotMusicCredentials.clientID)
         makeBasicRequest(settings: .userPlaylist(
-            userID:  API.userID),
+            userID:  "21i2rjgjdpnbf74apyug7a2ta"),
                          bodyData:nil, parameters: nil,
                          onSuccess: {response in completion(.success(response))},
-                         onError: {error in completion(.failure(error))}
+                         onError: {error in
+            print("Error in getUserPlaylist: \(error)")
+            completion(.failure(error))}
                          )
         
     }
@@ -295,7 +320,6 @@ class API:APIProtocol {
         
     }
     func getRecommendations(completion: @escaping (Result<TrackResponse,Error>) ->Void){
-//        let OAuthToken = "BQB5GOOYeCXGctV02VMq8x6irnJf3NrlQRRlGWw1Nh4VLe_-UNFJKsQFODNQidhEq6ke_Zkfxl-jAPBZNFp-PQbjtg_zc-AbIc1UEr-oGbjQE5H5Qqd2KCcOEFPYnj7Me9d-XpfB7W8YQDRWv3HR6e847qwl8ZCq1Agvj_TicJkdxP6bF8s1omdaALPTwslk7rGuaacJQ30mywJO-mo2Js4N88ld5sCU7IcMyQY"
         let OAuthToken = getOauthToken()
         let parametres:[String:Any] = [
             "seed_artist": "6KImCVD70vtIoJWnq6nGn3",
@@ -307,6 +331,24 @@ class API:APIProtocol {
                          bodyData: nil, parameters: parametres, onSuccess: {response in completion(.success(response))},
                          onError: {error in completion(.failure(error))})
         
+    }
+    
+    func addItemToPlaylist(playlistID:String, uri:String, completion:@escaping (Result<AddItemResponse,Error>) ->Void) {
+        let parameters:[String:Any] = [
+            "uris": [uri],
+            "position": 0,
+        ]
+        do {
+            let bodyData = try JSONSerialization.data(withJSONObject: parameters, options: [])
+            makeBasicRequest(settings: .addItemsToPlaylist(playlistID: playlistID, uri: uri), bodyData: bodyData, parameters: nil, onSuccess: {response in completion(.success(response))}, onError: {error in completion(.failure(error))})
+        }
+        catch {
+            completion(.failure(SpotiError.badSerialization))
+            
+        }
+        
+        
+        //makeBasicRequest(settings: .addItemsToPlaylist(playlistID: playlistID, uri: uri), bodyData:bodyd , parameters: nil, onSuccess: {response in completion(.success(response))}, onError: {error in completion(.failure(error))})
     }
     
     

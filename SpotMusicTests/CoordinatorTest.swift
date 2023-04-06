@@ -32,7 +32,7 @@ class CoordinatorTest: XCTestCase {
     
     func testSelectPlaylist() throws {
         
-        sut.selectPlaylist(id: "2")
+        sut.selectPlaylist(id: "2", isOwner: true)
         
         XCTAssertNotNil(navigationController.pushedViewController as? PlaylistViewController)
         

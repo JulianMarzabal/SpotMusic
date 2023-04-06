@@ -7,10 +7,12 @@
 
 import UIKit
 
+
 class AddMusicViewController: UIViewController {
     
     var viewmodel: AddMusicViewModel
-    
+   
+
     init(viewmodel: AddMusicViewModel){
         self.viewmodel = viewmodel
         super.init(nibName: nil, bundle: nil)
@@ -27,35 +29,29 @@ class AddMusicViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    lazy var searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.delegate = self
-        searchBar.tintColor = .white
-        searchBar.barStyle = .black
-        searchBar.searchTextField.textColor = .white
-        searchBar.searchTextField.backgroundColor = UIColor.grayCustom
-        searchBar.searchTextField.tintColor = .white
-        // Haz transparente el fondo de la UISearchBar
-        searchBar.backgroundImage = UIImage()
+    lazy var searchButton: UIButton = {
+        let button = UIButton()
         
-        searchBar.searchTextField.textColor = .white
-        // Personaliza el color de fondo del campo de búsqueda
-        searchBar.searchTextField.backgroundColor = UIColor.grayCustom
-
-        searchBar.searchTextField.tintColor = .white
-
-        searchBar.searchTextField.layer.cornerRadius = 10
-        searchBar.searchTextField.layer.masksToBounds = true
-        searchBar.searchTextField.layer.borderColor = UIColor.clear.cgColor
-        searchBar.searchTextField.layer.borderWidth = 0
-        if let searchIcon = searchBar.searchTextField.leftView as? UIImageView {
-            searchIcon.image = searchIcon.image?.withRenderingMode(.alwaysTemplate)
-            searchIcon.tintColor = .white
-        }
-    
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.placeholder = "Buscar canciones"
-        return searchBar
+        let image = UIImage(systemName: "magnifyingglass")
+        image?.withTintColor(.white)
+        button.setImage(image, for: .normal)
+        button.tintColor = .white
+        
+        button.setTitle("Search", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17.0, weight: .bold)
+        button.setTitleColor(.white, for: .normal)
+        button.semanticContentAttribute = .forceLeftToRight
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: -8)
+        button.addTarget(self, action: #selector(onSearchView), for: .touchUpInside)
+        
+        button.backgroundColor = UIColor.grayCustom
+        button.layer.cornerRadius = 10.0
+        
+        
+        
+        return button
     }()
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -89,32 +85,48 @@ class AddMusicViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setContraints()
+        bindReaction()
         viewmodel.getRecommendation()
+       // viewmodel.addItemToPlaylist(playlistID: "05StVqloyG5WUukEO8vMPL", uri: "spotify:track:7lPN2DXiMsVn7XUKtOW1CS")
+        
+       
 
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewmodel.updateViewModel()
+        
     }
     
     func setupUI(){
         view.backgroundColor = .black
+        let homeImage = UIImage(systemName: "house")
+        let homeButton = UIBarButtonItem(image: homeImage, style: .plain, target: self, action: #selector(goToHome))
+        homeButton.tintColor = .systemBlue
+        navigationItem.leftBarButtonItem = homeButton
+        
+        
         view.addSubview(label)
-        view.addSubview(searchBar)
+        view.addSubview(searchButton)
         view.addSubview(tableView)
         view.addSubview(headerLabel)
     }
     
     func setContraints() {
         NSLayoutConstraint.activate([
-            searchBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            searchBar.topAnchor.constraint(equalTo: label.bottomAnchor,constant: 30),
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            
+            searchButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            searchButton.topAnchor.constraint(equalTo: label.bottomAnchor,constant: 30),
+            searchButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            searchButton.heightAnchor.constraint(equalToConstant: 44),
+            searchButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 100),
             
             label.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
             label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             headerLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
             headerLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 5),
-            headerLabel.topAnchor.constraint(equalTo: searchBar.bottomAnchor,constant: 20),
+            headerLabel.topAnchor.constraint(equalTo: searchButton.bottomAnchor,constant: 20),
             headerLabel.heightAnchor.constraint(equalToConstant: 30),
             
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 5),
@@ -124,7 +136,22 @@ class AddMusicViewController: UIViewController {
         
         ])
     }
-    
+    func bindReaction(){
+        viewmodel.onSuccessfullUpdateReaction = {[weak self] in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+                
+            }
+            
+        }
+    }
+    @objc func onSearchView() {
+        let vc = AddSearchViewController()
+        present(vc, animated: true)
+    }
+    @objc func goToHome() {
+        viewmodel.delegate?.navigateToHome()
+    }
 
 
 }
@@ -136,7 +163,7 @@ extension AddMusicViewController: UISearchBarDelegate {
 
 extension AddMusicViewController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return viewmodel.cellModel.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -144,6 +171,8 @@ extension AddMusicViewController: UITableViewDelegate,UITableViewDataSource {
         {
             return UITableViewCell()
         }
+        let model = viewmodel.cellModel[indexPath.row]
+        cell.configure(with: model)
         return cell
        
     }
@@ -155,12 +184,6 @@ extension AddMusicViewController: UITableViewDelegate,UITableViewDataSource {
         
     }
    
-   
-    
-    
-    
-    
-    
-    
+ 
     
 }

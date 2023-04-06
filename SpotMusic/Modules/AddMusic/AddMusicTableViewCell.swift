@@ -7,9 +7,22 @@
 
 import Foundation
 import UIKit
+
+struct AddMusicTableViewModel{
+    var isPlaying: Bool
+    var nameSong: String
+    var uri: String
+    var playlistID: String
+    var image: String
+    var handler: ()-> Void
+  
+}
 class AddMusicTableViewCell: UITableViewCell {
 
     static let identifier = "AddMusicTableViewCell"
+    var isPlaying:Bool = false
+    var previewUrl:URL?
+    var viewmodel: AddMusicViewModel?
    
     var handler: (()-> Void)?
  
@@ -82,11 +95,17 @@ class AddMusicTableViewCell: UITableViewCell {
     }
     @objc private func pressButton() {
         handler?()
-     
         
+        print("handler press")
         
-
-   
+    }
+    
+    public func configure(with model: AddMusicTableViewModel) {
+        titleSongLabel.text = model.nameSong
+        handler = model.handler
+        guard let url = URL(string: model.image) else {return}
+        imagView.sd_setImage(with: url)
+        button.tintColor = model.isPlaying ? .systemGreen : .white
     }
  
  

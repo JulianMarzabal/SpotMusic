@@ -9,7 +9,7 @@ import UIKit
 import WebKit
 
 protocol AddPlaylistViewControllerDelegate: AnyObject {
-    func onNewPlaylistCreated()
+    func onNewPlaylistCreated(id:String)
 }
 
 class AddPlaylistViewController: UIViewController {
@@ -138,6 +138,7 @@ class AddPlaylistViewController: UIViewController {
     @objc func playlistCreated() {
         guard let playlistName = nameTextfield.text else { return }
         viewmodel.createPlaylist(name: playlistName )
+        // coordinator
         showPromptPlaylistCreatedView()
         
         
@@ -154,7 +155,8 @@ class AddPlaylistViewController: UIViewController {
     func showPromptPlaylistCreatedView() {
         let promptPlaylistCreatedView = PromptPlaylistCreatedView(onTapped: { [weak self] in
             // Acciones a realizar cuando se toca el botón "OK" en PromptPlaylistCreatedView
-            self?.delegate?.onNewPlaylistCreated()
+            guard let newPlaylistID = self?.viewmodel.newPlaylistID else {return}
+            self?.delegate?.onNewPlaylistCreated(id:newPlaylistID )
             //self?.navigationController?.popViewController(animated: true)
         })
 

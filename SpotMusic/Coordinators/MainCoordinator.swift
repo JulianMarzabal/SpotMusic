@@ -42,6 +42,7 @@ extension MainCoordinator: HomeViewDelegate {
     
     func selectPlaylist(id:String,isOwner:Bool) {
         let vm = PlaylistViewModel(playlistID: id, isOwner: isOwner)
+        
         let vc = PlaylistViewController(viewmodel: vm)
         print("celda1")
         navigationController.pushViewController(vc, animated: false)
@@ -50,10 +51,18 @@ extension MainCoordinator: HomeViewDelegate {
 }
 
 extension MainCoordinator:AddPlaylistViewControllerDelegate {
-    func onNewPlaylistCreated() {
-        let vm = AddMusicViewModel()
+    func onNewPlaylistCreated(id:String) {
+        let vm = AddMusicViewModel(id: id)
+        vm.delegate = self
         let vc = AddMusicViewController(viewmodel: vm)
         navigationController.pushViewController(vc, animated: true)
+    }
+    
+    
+}
+extension MainCoordinator: AddMusicViewModelDelegate {
+    func navigateToHome() {
+       start()
     }
     
     

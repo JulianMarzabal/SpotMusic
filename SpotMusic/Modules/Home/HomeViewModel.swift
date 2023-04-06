@@ -47,7 +47,7 @@ class HomeViewModel {
     private func createModel(){
         playlistHomeModel = []
         for track in playlist {
-            playlistHomeModel.append(.init(description: track.description, id: track.id, images:track.images, name: track.name, isOwner: track.owner.id == API.userID  ))
+            playlistHomeModel.append(.init(description: track.description, id: track.id, images:track.images, name: track.name, isOwner: track.owner.id == SpotMusicCredentials.clientID  ))
         }
         
         
