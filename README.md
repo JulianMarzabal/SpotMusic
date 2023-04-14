@@ -6,6 +6,7 @@ Work in progress
 SpotMusic is an app that utilizes the Spotify API to display user playlists, create new ones, search for songs, and stream thousands of tracks
 
 Technologies and Patterns Used
+<hr>
 MVVM: The Model-View-ViewModel design pattern was employed to separate the business logic from the user interface and facilitate unit testing.
 
 UIKit:it was used for developing user interfaces in the application.
