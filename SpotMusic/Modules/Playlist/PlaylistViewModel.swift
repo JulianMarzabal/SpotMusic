@@ -9,6 +9,10 @@ import Foundation
 import SDWebImage
 import AVFoundation
 
+protocol PlaylistViewModelDelegate:AnyObject {
+    func navigateToAddTrackToPlaylist(id:String)
+}
+
 class PlaylistViewModel {
     var playlistByID: [Item] = [Item]()
     var myPlaylistModel: [myPlaylistModel] = []
@@ -22,6 +26,7 @@ class PlaylistViewModel {
     var playlistID: String
     var isOwner:Bool
     var onImageChange: ((String) -> Void)?
+    weak var delegate: PlaylistViewModelDelegate?
    
    
     
@@ -104,6 +109,11 @@ class PlaylistViewModel {
         createModel()
 
         onSuccessfullUpdateReaction?()
+        
+    }
+    
+    func addTrackToPlaylist() {
+        delegate?.navigateToAddTrackToPlaylist(id: playlistID)
         
     }
     

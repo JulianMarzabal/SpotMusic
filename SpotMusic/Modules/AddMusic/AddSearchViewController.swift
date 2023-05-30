@@ -25,11 +25,13 @@ class AddSearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = .systemPink
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.red]
+        title = "grbvfrvrf"
+        view.backgroundColor = .systemGreen
         
         // Configure search bar
         self.navigationItem.searchController = searchController
+        self.navigationItem.title = "Search"
         self.navigationItem.hidesSearchBarWhenScrolling = false
         searchController.searchBar.delegate = self
     }

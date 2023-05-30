@@ -33,7 +33,7 @@ class HomeviewModelTest: XCTestCase {
 
     func testGetUserPlaylist() throws {
         var callBackHasbeenCalled = false
-        api.userPlaylistResponse = .success(.init(items: [.init(collaborative: true, description: "good", externalUrls: "", href: "122334", id: "2", images: [], name: "duro de matar", userPlaylistPublic: true, snapshotID: "", type: "movie", uri: "")]))
+        api.userPlaylistResponse = .success(.init(items: [.init(collaborative: true, owner: OwnerPlaylist.init(id: "2"), description: "good", externalUrls: "", href: "122334", id: "2", images: [], name: "duro de matar", userPlaylistPublic: true, snapshotID: "", type: "movie", uri: "")]))
         sut.onSuccessfullUpdateReaction = {
             callBackHasbeenCalled = true
         }
@@ -69,13 +69,26 @@ class HomeviewModelTest: XCTestCase {
     }
     
     func testSelectPlaylistByID() throws {
-        let playlistID = "2"
-                
-        sut.delegate?.selectPlaylist(id: playlistID)
-       
         
-        XCTAssert(spy.selectPlaylistCalled)
-        XCTAssertEqual(spy.selectPlaylistValue, playlistID)
+        api.userPlaylistResponse = .success(.init(items: [.init(collaborative: true, owner: OwnerPlaylist.init(id: "2"), description: "good", externalUrls: "", href: "122334", id: "2", images: [], name: "duro de matar", userPlaylistPublic: true, snapshotID: "", type: "movie", uri: "")]))
+
+       
+        sut.getPlaylist()
+        let expectation = XCTestExpectation(description: "se espera llenar el array de playlist response")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.sut.selectPlaylistBy(index: 0)
+           
+            expectation.fulfill()
+            
+        }
+        wait(for: [expectation], timeout: 2)
+        XCTAssert(self.spy.selectPlaylistCalled)
+        XCTAssertEqual(self.spy.selectPlaylistValue, "2","El Id de la respuesta deberia ser igual a 2")
+        
+        
+        
+        
       
         
     }

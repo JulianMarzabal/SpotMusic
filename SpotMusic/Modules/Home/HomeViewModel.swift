@@ -20,6 +20,7 @@ class HomeViewModel {
     var onSuccessfullUpdateReaction:  (() -> Void)?
     var playlistHomeModel: [PlaylistsHomeModel] = []
     var api:APIProtocol = API.shared
+    var userID = SpotMusicCredentials.userID
     
     func configureObservers(){
         NotificationCenter.default.addObserver(self, selector: #selector(getPlaylist), name: .init(rawValue: "playlistObserver"), object: nil)
@@ -46,8 +47,9 @@ class HomeViewModel {
     }
     private func createModel(){
         playlistHomeModel = []
+        print(SpotMusicCredentials.clientID)
         for track in playlist {
-            playlistHomeModel.append(.init(description: track.description, id: track.id, images:track.images, name: track.name, isOwner: track.owner.id == SpotMusicCredentials.clientID  ))
+            playlistHomeModel.append(.init(description: track.description, id: track.id, images:track.images, name: track.name, isOwner: track.owner.id == userID  ))
         }
         
         

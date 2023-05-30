@@ -147,7 +147,7 @@ class AddMusicViewController: UIViewController {
     }
     @objc func onSearchView() {
         let vc = AddSearchViewController()
-        present(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
     }
     @objc func goToHome() {
         viewmodel.delegate?.navigateToHome()

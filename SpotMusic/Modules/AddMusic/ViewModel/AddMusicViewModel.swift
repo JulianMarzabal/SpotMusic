@@ -105,7 +105,7 @@ class AddMusicViewModel {
         trackRecommendationModel = []
         
         for item in recommendationResponse {
-            trackRecommendationModel.append(.init(id: item.id, isPlayable: item.isPlayable, name: item.name, popularity: item.popularity, previewUrl: item.previewUrl, uri: item.uri, image: item.images?.first?.url ?? ""))
+            trackRecommendationModel.append(.init(id: item.id, isPlayable: item.isPlayable, name: item.name, popularity: item.popularity, previewUrl: item.previewUrl, uri: item.uri, image: item.album.images.first?.url ?? ""))
             
         }
       

@@ -14,7 +14,7 @@ class PlaylistViewControllerTest: XCTestCase {
     
 
     override func setUpWithError() throws {
-        viewmodel = PlaylistViewModelMock(playlistID: "2")
+        viewmodel = PlaylistViewModelMock(playlistID: "2", isOwner: true)
         sut = PlaylistViewController(viewmodel: viewmodel)
         sut.viewmodel = viewmodel
         sut.tableView.register(PlaylistTableViewCell.self, forCellReuseIdentifier: PlaylistTableViewCell.identifier)

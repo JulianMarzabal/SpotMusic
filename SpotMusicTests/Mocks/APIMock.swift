@@ -10,6 +10,18 @@ import Foundation
 
 
 class ApiMock:APIProtocol {
+    func createPlaylist(name: String, completion: @escaping (Result<CreatePlaylistResponse, Error>) -> Void) {
+        
+    }
+    
+    func getRecommendations(completion: @escaping (Result<TrackResponse, Error>) -> Void) {
+        
+    }
+    
+    func addItemToPlaylist(playlistID: String, uri: String, completion: @escaping (Result<AddItemResponse, Error>) -> Void) {
+        
+    }
+    
     func getAccesTokenOauth(code: String, completion: @escaping (Result<OauthTokenResponse, Error>) -> Void) {
         
     }

@@ -97,6 +97,7 @@ class PlaylistViewController: UIViewController {
         
     }
     @objc func addTrackToPlaylist() {
+        viewmodel.addTrackToPlaylist()
         
     }
     
