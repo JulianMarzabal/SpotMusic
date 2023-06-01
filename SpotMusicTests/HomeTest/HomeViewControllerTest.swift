@@ -26,7 +26,7 @@ class HomeViewControllerTest: XCTestCase {
     }
 
     func testCollectionView_cellForItemAt() throws {
-        let mockModel = PlaylistsHomeModel(description: "best songs ever", id: "4", images: nil, name: "Exitos Argentina")
+        let mockModel = PlaylistsHomeModel(description: "best songs ever", id: "4", images: nil, name: "Exitos Argentina", isOwner: false)
         sut.viewModel.playlistHomeModel = [mockModel]
         
         

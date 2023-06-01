@@ -8,6 +8,7 @@
 import UIKit
 import SDWebImage
 
+
 class MusicCollectionViewCell: UICollectionViewCell {
     static let identifier = "MusicCollectionViewCell"
     
@@ -64,7 +65,7 @@ class MusicCollectionViewCell: UICollectionViewCell {
     }
     public func configure(with model: PlaylistsHomeModel) {
         genreLabel.text = model.name ?? "N/A"
-        //print("el url \(model.images)")
+    
         guard let url = URL(string: model.images?.first?.url ?? "nil")else { return }
         genreImageView.sd_setImage(with: url)
         genreImageView.layer.cornerRadius = 20

@@ -16,10 +16,12 @@ class MainCoordinator {
     }
     func start() {
         let vm = HomeViewModel()
+        let searchVM = SearchResultViewModel()
+        searchVM.delegate = self
         vm.delegate = self
-        let vc = HomeViewController(viewModel: vm)
-        
-        
+        let searchVC = SearchResultsViewController(viewModel: searchVM)
+        let vc = HomeViewController(viewModel: vm, searchResultViewController: searchVC)
+ 
         navigationController.pushViewController(vc, animated: true)
     }
     
@@ -42,6 +44,8 @@ extension MainCoordinator: HomeViewDelegate {
     
     func selectPlaylist(id:String,isOwner:Bool) {
         let vm = PlaylistViewModel(playlistID: id, isOwner: isOwner)
+        vm.delegate = self
+        
         let vc = PlaylistViewController(viewmodel: vm)
         print("celda1")
         navigationController.pushViewController(vc, animated: false)
@@ -50,9 +54,37 @@ extension MainCoordinator: HomeViewDelegate {
 }
 
 extension MainCoordinator:AddPlaylistViewControllerDelegate {
-    func onNewPlaylistCreated() {
-        let vm = AddMusicViewModel()
+    func onNewPlaylistCreated(id:String) {
+        let vm = AddMusicViewModel(id: id)
+        vm.delegate = self
         let vc = AddMusicViewController(viewmodel: vm)
+        navigationController.pushViewController(vc, animated: true)
+    }
+    
+    
+}
+extension MainCoordinator: AddMusicViewModelDelegate {
+    func navigateToHome() {
+       start()
+    }
+    
+    
+}
+extension MainCoordinator: PlaylistViewModelDelegate {
+    func navigateToAddTrackToPlaylist(id: String) {
+     onNewPlaylistCreated(id: id)
+    }
+    
+    
+    
+    
+    
+}
+
+extension MainCoordinator: SearchViewDelegate {
+    func toDescriptionSong() {
+        
+        let vc = DescriptionViewController()
         navigationController.pushViewController(vc, animated: true)
     }
     

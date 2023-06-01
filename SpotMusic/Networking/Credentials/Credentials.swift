@@ -8,7 +8,7 @@
 import Foundation
 
 struct SpotMusicCredentials {
-    
+    static let  userID = "21i2rjgjdpnbf74apyug7a2ta"
     static let clientID: String = ProcessInfo.processInfo.environment["client_ID"] ?? "Default"
     static let clientSecretID: String = ProcessInfo.processInfo.environment["client_SecretID"] ?? "Default"
     private static func base64EncodedCredentials() -> String {

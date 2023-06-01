@@ -9,13 +9,15 @@ import UIKit
 
 
 class HomeViewController: UIViewController {
-    var viewModel: HomeViewModel
-    let searchResultViewController: SearchResultsViewController = .init(viewModel: .init())
+    private var viewModel: HomeViewModel
+    private var searchResultViewController: SearchResultsViewController
     
     
     
-    init(viewModel: HomeViewModel){
+    
+    init(viewModel: HomeViewModel, searchResultViewController: SearchResultsViewController){
         self.viewModel = viewModel
+        self.searchResultViewController = searchResultViewController
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -25,7 +27,7 @@ class HomeViewController: UIViewController {
     
     
     
-    lazy var searchController: UISearchController = {
+    private lazy  var searchController: UISearchController = {
         let search = UISearchController(searchResultsController: searchResultViewController)
     
         search.searchBar.placeholder = "Listen your favourite music"
@@ -42,7 +44,7 @@ class HomeViewController: UIViewController {
         return search
     }()
     
-    let collectionView: UICollectionView = {
+    private lazy var  collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = .init(width: 180, height: 100)
         layout.scrollDirection = .vertical
@@ -56,9 +58,9 @@ class HomeViewController: UIViewController {
        
         return collection
     }()
-    lazy var titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Explore your playlist"
+        label.text = viewModel.title
         label.textColor = .white
         label.textAlignment = .left
         label.numberOfLines = 0
@@ -69,14 +71,12 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //API.shared.authorization()
-        
         view.backgroundColor = .black
         bindReaction()
         viewModel.configureObservers()
         setupUI()
         setupConstraints()
-        viewModel.getPlaylist()
+        viewModel.updateViewModel()
         
     
     }
@@ -107,7 +107,7 @@ class HomeViewController: UIViewController {
         
         
         self.navigationItem.largeTitleDisplayMode = .always
-        self.navigationItem.title = "Search"
+        self.navigationItem.title = viewModel.navigationtitle
         self.navigationItem.titleView?.tintColor = .white
         self.navigationController?.navigationBar.barTintColor = .black
         self.navigationController?.navigationBar.isTranslucent = false
@@ -115,14 +115,8 @@ class HomeViewController: UIViewController {
             .foregroundColor : UIColor.white
         ]
         self.navigationController?.navigationBar.titleTextAttributes = attributes
-        
-            
-            
-        
-   
         view.addSubview(collectionView)
         view.addSubview(titleLabel)
-      
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(MusicCollectionViewCell.self, forCellWithReuseIdentifier: MusicCollectionViewCell.identifier)
@@ -137,7 +131,6 @@ class HomeViewController: UIViewController {
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 5),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
-            //collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 10),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 10),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -10),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -145,7 +138,7 @@ class HomeViewController: UIViewController {
         ])
     }
     
-    @objc func addPlaylist() {
+    @objc private func addPlaylist() {
         viewModel.delegate?.toAddPlaylistView()
         
     }
@@ -155,13 +148,7 @@ class HomeViewController: UIViewController {
 
 }
 extension HomeViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-
-        print("Cambiando")
-    }
-    
-    
-    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {}
     
 }
 extension HomeViewController: UISearchResultsUpdating {
@@ -170,47 +157,28 @@ extension HomeViewController: UISearchResultsUpdating {
         guard let text = searchController.searchBar.text?.lowercased().replacingOccurrences(of: " ", with: "%20") else {
             return
         }
-        print(text)
         searchResultViewController.viewModel.text = text
-        
-        //self.searchViewModel.getSearchQuery(text)
-        
+   
     }
-    
-    
 }
-
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MusicCollectionViewCell.identifier, for: indexPath) as! MusicCollectionViewCell
         let colors = [UIColor.systemRed, UIColor.systemBlue, UIColor.systemGreen, UIColor.systemYellow, UIColor.systemPink]
         let model = viewModel.playlistHomeModel[indexPath.row]
-        
         cell.backgroundColor = colors[indexPath.item % colors.count]
-        
         cell.configure(with: model)
-        
-    
-       
         return cell
-       
     }
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.playlistHomeModel.count
     }
-    
-    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let  cell = collectionView.cellForItem(at: indexPath) as? MusicCollectionViewCell else {
-            return
-        }
         viewModel.selectPlaylistBy(index: indexPath.row)
      
-        print("cell\([indexPath.row])")
     }
     
 }

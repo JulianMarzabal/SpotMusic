@@ -86,6 +86,18 @@
             ReferencedContainer = "container:SpotMusic.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "client_ID"
+            value = "19705411f2bd4583a2538641ef7c4856"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "client_SecretID"
+            value = "4695bf2c0a5545cf9c4e78188cf44a3d"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

@@ -21,6 +21,8 @@ struct TrackRecommendation: Codable {
     let href: String?
     let id: String
     let isPlayable: Bool?
+    let album: AlbumOfTrack
+ 
   
     let name: String
     let popularity: Int
@@ -29,6 +31,11 @@ struct TrackRecommendation: Codable {
     let uri: String
   
 }
+
+struct AlbumOfTrack:Codable {
+    let images: [ImageRecommendation]
+}
+
 
 struct AlbumRecommendation: Codable {
    

@@ -9,11 +9,15 @@ import Foundation
 import SDWebImage
 import AVFoundation
 
+protocol PlaylistViewModelDelegate:AnyObject {
+    func navigateToAddTrackToPlaylist(id:String)
+}
+
 class PlaylistViewModel {
     var playlistByID: [Item] = [Item]()
     var myPlaylistModel: [myPlaylistModel] = []
     var onSuccessfullUpdateReaction:  (() -> Void)?
-    var audioModule: AudioModuleProtocol = AudioModule()
+    var audioModule: AudioModuleProtocol
     var musicSound: AVAudioPlayer?
     var cellModel: [PlaylistTableViewModel] = []
     var api:APIProtocol = API.shared
@@ -22,14 +26,16 @@ class PlaylistViewModel {
     var playlistID: String
     var isOwner:Bool
     var onImageChange: ((String) -> Void)?
+    weak var delegate: PlaylistViewModelDelegate?
    
    
     
     
     
-    init(playlistID:String,isOwner:Bool){
+    init(playlistID:String,isOwner:Bool,audioModule: AudioModuleProtocol = AudioModule.shared){
         self.playlistID = playlistID
         self.isOwner = isOwner
+        self.audioModule = audioModule
     }
     
     
@@ -104,6 +110,11 @@ class PlaylistViewModel {
         createModel()
 
         onSuccessfullUpdateReaction?()
+        
+    }
+    
+    func addTrackToPlaylist() {
+        delegate?.navigateToAddTrackToPlaylist(id: playlistID)
         
     }
     

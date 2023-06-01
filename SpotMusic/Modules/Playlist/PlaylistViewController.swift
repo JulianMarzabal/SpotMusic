@@ -14,12 +14,13 @@ var audioMusic: AVAudioPlayer?
 
 class PlaylistViewController: UIViewController {
     var viewmodel: PlaylistViewModel
-    var audiomodule: AudioModule = .init()
+    var audiomodule: AudioModuleProtocol
     
    
     
-    init(viewmodel: PlaylistViewModel){
+    init(viewmodel: PlaylistViewModel, audiomodule: AudioModuleProtocol = AudioModule.shared){
         self.viewmodel = viewmodel
+        self.audiomodule = audiomodule
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -97,6 +98,7 @@ class PlaylistViewController: UIViewController {
         
     }
     @objc func addTrackToPlaylist() {
+        viewmodel.addTrackToPlaylist()
         
     }
     

@@ -15,7 +15,7 @@ class PlaylistViewModelTest: XCTestCase {
     
 
     override func setUpWithError() throws {
-        sut = .init(playlistID: "2")
+        sut = .init(playlistID: "2", isOwner: true)
         api = ApiMock()
         audioModuleMock = AudioModuleMock()
         sut.audioModule = audioModuleMock
