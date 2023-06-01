@@ -17,9 +17,12 @@ protocol AudioModuleProtocol:AnyObject {
 
 
 class AudioModule:AudioModuleProtocol {
-   
+    static let shared = AudioModule()
+    private init (){
+        
+    }
     
-    var audioPlayer: AVAudioPlayer = .init()
+    private var audioPlayer: AVAudioPlayer = .init()
     
     func loadMusic(url:URL) {
         if audioPlayer.isPlaying {
@@ -39,10 +42,5 @@ class AudioModule:AudioModuleProtocol {
         audioPlayer.stop()
     
     }
-    
-    
-    
-    
-    
-    
+   
 }

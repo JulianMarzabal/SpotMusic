@@ -35,7 +35,6 @@ class KeychainManager {
                 throw KeychainError.unknown(status)
             } 
         }
-        print("saved")
     }
     
     static func readToken(account: String) -> Data? {

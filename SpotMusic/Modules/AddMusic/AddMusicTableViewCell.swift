@@ -95,8 +95,7 @@ class AddMusicTableViewCell: UITableViewCell {
     }
     @objc private func pressButton() {
         handler?()
-        
-        print("handler press")
+      
         
     }
     

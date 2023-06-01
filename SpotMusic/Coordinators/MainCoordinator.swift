@@ -16,10 +16,12 @@ class MainCoordinator {
     }
     func start() {
         let vm = HomeViewModel()
+        let searchVM = SearchResultViewModel()
+        searchVM.delegate = self
         vm.delegate = self
-        let vc = HomeViewController(viewModel: vm)
-        
-        
+        let searchVC = SearchResultsViewController(viewModel: searchVM)
+        let vc = HomeViewController(viewModel: vm, searchResultViewController: searchVC)
+ 
         navigationController.pushViewController(vc, animated: true)
     }
     
@@ -73,6 +75,18 @@ extension MainCoordinator: PlaylistViewModelDelegate {
      onNewPlaylistCreated(id: id)
     }
     
+    
+    
+    
+    
+}
+
+extension MainCoordinator: SearchViewDelegate {
+    func toDescriptionSong() {
+        
+        let vc = DescriptionViewController()
+        navigationController.pushViewController(vc, animated: true)
+    }
     
     
 }

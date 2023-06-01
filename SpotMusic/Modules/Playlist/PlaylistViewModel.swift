@@ -17,7 +17,7 @@ class PlaylistViewModel {
     var playlistByID: [Item] = [Item]()
     var myPlaylistModel: [myPlaylistModel] = []
     var onSuccessfullUpdateReaction:  (() -> Void)?
-    var audioModule: AudioModuleProtocol = AudioModule()
+    var audioModule: AudioModuleProtocol
     var musicSound: AVAudioPlayer?
     var cellModel: [PlaylistTableViewModel] = []
     var api:APIProtocol = API.shared
@@ -32,9 +32,10 @@ class PlaylistViewModel {
     
     
     
-    init(playlistID:String,isOwner:Bool){
+    init(playlistID:String,isOwner:Bool,audioModule: AudioModuleProtocol = AudioModule.shared){
         self.playlistID = playlistID
         self.isOwner = isOwner
+        self.audioModule = audioModule
     }
     
     

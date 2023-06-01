@@ -6,13 +6,16 @@
 //
 
 import Foundation
-
+protocol SearchViewDelegate:AnyObject {
+    func toDescriptionSong()
+}
 
 class SearchResultViewModel{
     
     var searchItem:[TracksItem] = [TracksItem]()
     var searchModel:[SearchModel] = []
     var api:APIProtocol = API.shared
+    weak var delegate: SearchViewDelegate?
    
     var onSuccessfullUpdateReaction:  (() -> Void)?
     public var text: String = ""{
@@ -56,6 +59,10 @@ class SearchResultViewModel{
     func updateViewModel() {
         createModel()
         onSuccessfullUpdateReaction?()
+    }
+    
+    func displayDescriptionSong() {
+        delegate?.toDescriptionSong()
     }
     
     

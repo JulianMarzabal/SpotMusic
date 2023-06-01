@@ -18,13 +18,13 @@ class AddMusicViewModel {
     var api:APIProtocol = API.shared
     var cellModel:[AddMusicTableViewModel] = []
     var trackRecommendationModel: [TrackRecommendationsModel] = []
-    var recommendationResponse:[TrackRecommendation] = [TrackRecommendation]()
     var songPlaying: String?
-    var audioModule: AudioModuleProtocol = AudioModule()
+    var audioModule: AudioModuleProtocol
     var onSuccessfullUpdateReaction:  (() -> Void)?
     var playlistID:String?
     
-    init(id:String){
+    init(id:String,audioModule: AudioModuleProtocol =  AudioModule.shared){
+        self.audioModule = audioModule
         self.id = id
     }
     
@@ -32,10 +32,8 @@ class AddMusicViewModel {
         api.getRecommendations { [weak self] result in
             switch result {
             case .success(let tracks):
-                self?.recommendationResponse = tracks.tracks
-                self?.createModel()
+                self?.createModel(recommendations: tracks.tracks)
                 self?.updateCells()
-                print("get recommendation")
                
             case .failure(let error):
                 print("error \(error.localizedDescription)")
@@ -44,7 +42,6 @@ class AddMusicViewModel {
     }
     func addItemToPlaylist(playlistID:String,uri:String) {
         
-        print("playlistID es : \(playlistID) y la uri es \(uri)")
         api.addItemToPlaylist(playlistID: playlistID, uri: uri, completion: { [weak self] result in
             switch result {
             case .success(let addItem):
@@ -76,9 +73,7 @@ class AddMusicViewModel {
         
         self.onSuccessfullUpdateReaction?()
     }
-    
-    
-    
+
     func handleSong(addRecomendationSong:TrackRecommendationsModel){
         
         if let songPlaying = songPlaying {
@@ -101,10 +96,10 @@ class AddMusicViewModel {
     
     
     
-    func createModel() {
+    func createModel(recommendations:[TrackRecommendation]) {
         trackRecommendationModel = []
         
-        for item in recommendationResponse {
+        for item in recommendations {
             trackRecommendationModel.append(.init(id: item.id, isPlayable: item.isPlayable, name: item.name, popularity: item.popularity, previewUrl: item.previewUrl, uri: item.uri, image: item.album.images.first?.url ?? ""))
             
         }
@@ -113,8 +108,7 @@ class AddMusicViewModel {
     }
     
     func updateViewModel() {
-        createModel()
-        onSuccessfullUpdateReaction?()
+        getRecommendation()
     }
     
     

@@ -24,6 +24,7 @@
 		1E341EFC29C13C6A0098DF71 /* AddPlaylistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E341EFB29C13C6A0098DF71 /* AddPlaylistViewModel.swift */; };
 		1E38265129ABA44B005466CD /* SearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E38265029ABA44B005466CD /* SearchResultViewModel.swift */; };
 		1E38265329ABA827005466CD /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E38265229ABA827005466CD /* SearchModel.swift */; };
+		1E3A77C02A26A4F0001A71E8 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3A77BF2A26A4F0001A71E8 /* DescriptionViewController.swift */; };
 		1E3C3C8729BAAB7400E3E6EF /* PlaylistViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3C3C8629BAAB7400E3E6EF /* PlaylistViewControllerTest.swift */; };
 		1E3C3C8929BAAC6100E3E6EF /* PlaylistViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3C3C8829BAAC6100E3E6EF /* PlaylistViewModelMock.swift */; };
 		1E3CC51629C2A2AF007E0FFC /* PromptTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3CC51529C2A2AF007E0FFC /* PromptTest.swift */; };
@@ -110,6 +111,7 @@
 		1E341EFB29C13C6A0098DF71 /* AddPlaylistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlaylistViewModel.swift; sourceTree = "<group>"; };
 		1E38265029ABA44B005466CD /* SearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewModel.swift; sourceTree = "<group>"; };
 		1E38265229ABA827005466CD /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
+		1E3A77BF2A26A4F0001A71E8 /* DescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
 		1E3C3C8629BAAB7400E3E6EF /* PlaylistViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewControllerTest.swift; sourceTree = "<group>"; };
 		1E3C3C8829BAAC6100E3E6EF /* PlaylistViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewModelMock.swift; sourceTree = "<group>"; };
 		1E3CC51529C2A2AF007E0FFC /* PromptTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptTest.swift; sourceTree = "<group>"; };
@@ -240,6 +242,14 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		1E3A77BE2A26A4D1001A71E8 /* Description */ = {
+			isa = PBXGroup;
+			children = (
+				1E3A77BF2A26A4F0001A71E8 /* DescriptionViewController.swift */,
+			);
+			path = Description;
+			sourceTree = "<group>";
+		};
 		1E3CC51929C2A727007E0FFC /* AudioModuleTest */ = {
 			isa = PBXGroup;
 			children = (
@@ -324,6 +334,7 @@
 		1E49B590297DDFF800698D1F /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				1E3A77BE2A26A4D1001A71E8 /* Description */,
 				1E53E6AE29C7AF54009CBCE2 /* WebKitAuth */,
 				1E7642B129A58E6D0001CEAA /* Search */,
 				1E582A8F29A29E3600BB97F3 /* AddPlaylist */,
@@ -647,6 +658,7 @@
 				1E49B58A297DBC0300698D1F /* Help.swift in Sources */,
 				1EA9E31B2986FDAD00A3693A /* PlaylistsHomeModel.swift in Sources */,
 				1E38265129ABA44B005466CD /* SearchResultViewModel.swift in Sources */,
+				1E3A77C02A26A4F0001A71E8 /* DescriptionViewController.swift in Sources */,
 				1E64AE1729D0822000F8A64F /* AddMusicViewController.swift in Sources */,
 				1E49B58F297DDBA800698D1F /* MainCoordinator.swift in Sources */,
 				1E49B58C297DCCBD00698D1F /* KeychainManager.swift in Sources */,

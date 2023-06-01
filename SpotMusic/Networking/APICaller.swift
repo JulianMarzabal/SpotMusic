@@ -132,14 +132,6 @@ protocol APIProtocol {
 
 class API:APIProtocol {
     
-    //static var userID: String = "21i2rjgjdpnbf74apyug7a2ta"
-    
-    
-
-    
-   
-    
-    
     var authenticationManager = AuthManager()
     static let shared = API()
     
@@ -232,8 +224,6 @@ class API:APIProtocol {
         let uri = "https://5acc-190-173-105-153.sa.ngrok.io/callback/"
         makeBasicRequest(settings: .loginOAuth(basicAuthorization:"Basic MTk3MDU0MTFmMmJkNDU4M2EyNTM4NjQxZWY3YzQ4NTY6NDY5NWJmMmMwYTU1NDVjZjljNGU3ODE4OGNmNDRhM2Q="), bodyData: "grant_type=authorization_code&code=\(code)&redirect_uri=\(uri)".data(using: .utf8), parameters: nil, onSuccess: {response in completion(.success(response))}, onError: {error in completion(.failure(error))})
         
-        
-       // "Basic MTk3MDU0MTFmMmJkNDU4M2EyNTM4NjQxZWY3YzQ4NTY6NDY5NWJmMmMwYTU1NDVjZjljNGU3ODE4OGNmNDRhM2Q="
         
     }
     
